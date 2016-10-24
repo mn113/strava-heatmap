@@ -34,12 +34,8 @@ function print_stats($stats) {
 }
 
 
-// Insert a ride's polyline, map element and js code into the page:
+// Insert a ride's polyline code into the page as a js-var:
 function print_ridemap($ride) {
-	
-	// Echo polyline to js var in page, for js decoding & rendering:
 	echo '<script type="text/javascript">var myLine = "' . $ride->map->summary_polyline . '";</script>';
-	// Include rendering block:
-	include('map.inc.php');
 }
 

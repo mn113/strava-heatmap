@@ -1,10 +1,11 @@
 <?php
-	// Initialise debug console:
-$connector = \PhpConsole\Connector::getInstance();
+// Initialise debug console:
+require_once(__DIR__ . '/vendor/php-console/php-console/src/PhpConsole/__autoload.php');
+$isActiveClient = PhpConsole\Connector::getInstance()->isActiveClient();
 
 require_once('config.inc.php');
 require_once('strava-master/StravaApi.php');
-include_once('functions.php');
+include_once('functions.inc.php');
 
 // Initialise API caller:
 $api = new Iamstuartwilson\StravaApi(
@@ -19,32 +20,36 @@ include('header.inc.php');
 
 
 // Get me:
-$myid = 586419;
-$me = $api->get("athlete");
-print_athlete($me);
-echo '<hr>';
-$mystats = $api->get("athletes/$myid/stats");
-print_stats($mystats);
-echo '<hr>';
+//$myid = 586419;
+//$me = $api->get("athlete");
+//print_athlete($me);
+//echo '<hr>';
+//$mystats = $api->get("athletes/$myid/stats");
+//print_stats($mystats);
+//echo '<hr>';
 
 // Get one club member:
-$roadcc = $api->get("clubs/10360/members");
-$aguy = $roadcc[rand(0,10)];
-print_athlete($aguy);
-echo '<hr>';
+//$roadcc = $api->get("clubs/10360/members");
+//$aguy = $roadcc[rand(0,10)];
+//print_athlete($aguy);
+//echo '<hr>';
 
 // Get a ride:
-$aride = $api->get("activities/748612620");
-print_ridemap($aride);
+//$aride = $api->get("activities/748612620");
+//print_ridemap($aride);
 echo '<hr>';
 
 // Get friends' rides:
-$friend_rides = $api->get("activities/following", ['per_page' => 5, 'page' => 1]);
+$friend_rides = $api->get("activities/following", ['per_page' => 10, 'page' => 1]);
 foreach ($friend_rides as $fride) {
-	print_ride_details($fride);
-	echo "<script type='text/javascript'>
-			heatmap.addPolyLine('" . $fride->map->summary_polyline . "', " . $fride->id . ");
-		 </script>";
+	echo '<p data-rideId='. $fride->id .' data-summary="'. $fride->map->summary_polyline .'">';
+		print_ride_details($fride);
+	echo '</p>';
+
+//			polyLines.push({
+//				'id': $fride->id,
+//				'summary': '{$fride->map->summary_polyline}'
+//			});
 	echo '<hr>';
 }
 
