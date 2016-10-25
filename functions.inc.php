@@ -9,7 +9,13 @@ function format_date($utc_date) {
 
 // Improve Strava's distance formatting:
 function format_km($metres) {
-	return number_format($metres / 1000, 1) . 'km';		// 1 decimal place
+	return '&roarr;&nbsp;' . number_format($metres / 1000, 1) . 'km';		// 1 decimal place
+}
+
+
+// Improve Strava's elevation formatting:
+function format_elev($metres) {
+	return '&lrtri;&nbsp;' . number_format($metres, 0) . 'm';
 }
 
 
@@ -21,7 +27,7 @@ function print_list_items($rides) {
 			' data-date="'. format_date($ride->start_date_local) . '"' . 
 			' data-title="'. $ride->name . '"' .
 			' data-dist="'. format_km($ride->distance) . '"' . 
-			' data-elev="'. $ride->total_elevation_gain . '"' . 
+			' data-elev="'. format_elev($ride->total_elevation_gain) . '"' . 
 			' data-athlete="'. $ath->firstname . ' ' . $ath->lastname . '"' . 
 			' data-avatar="'. $ath->profile . '"' .
 			' data-summary="'. $ride->map->summary_polyline . '">';
@@ -37,7 +43,7 @@ function print_ride_details($ride) {
 	echo '<span>'. format_date($ride->start_date_local) .'</span>';
 	echo '<span>'. $ride->name .'</span>';
 	echo '<span>'. format_km($ride->distance) .'</span>';
-	echo '<span>'. $ride->total_elevation_gain . 'm</span>';
+	echo '<span>'. format_elev($ride->total_elevation_gain) . '</span>';
 	echo '<div>';
 		print_athlete($ride->athlete);
 	echo '</div>';

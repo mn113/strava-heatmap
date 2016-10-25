@@ -1,7 +1,7 @@
 <?php
 ?>
 <div id="options">
-	<div id="tabs>">
+	<div id="tabs">
 		<button type="button" id="friends-btn" class="button-primary">Friends</button>
 		<button type="button" id="clubs-btn">Clubs</button>
 	</div>
@@ -14,7 +14,8 @@
 		<p style="display:none">You are not in any clubs :(</p>
 	</form>
 	
-	<form name="map-options">
+	<a name="options"><span>&rtrif;</span> Map options</a>
+	<form name="map-options" style="display:none">
 		<input type="checkbox" name="exclude-self" checked><label for="exclude-self">Exclude self?</label>
 		<br>
 		
@@ -49,6 +50,19 @@
 		$('#friends-btn').removeClass('button-primary');
 		$(this).addClass('button-primary');
 	});	
+	
+	// Options behaviour:
+	$('a[name=options]').click(function() {
+		var form = $('form[name=map-options]');
+		if (form.visible) {
+			$(form).animate({height: 0}, 500);
+			$(this).children('span').html("&rtrif;");	// icon ▸
+		}
+		else {
+			$(form).animate({height: '200px'}, 500);
+			$(this).children('span').html("&dtrif;");	// icon ▾
+		}
+	});
 </script>
 
 <?php

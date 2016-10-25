@@ -2,9 +2,9 @@
  * element that contains the map. */
 #map {
 	height: 25em;
-	width: 50%;
+	width: 60%;
 	float: left;
-	border: 1px solid #666;
+	border: 1px solid #999;
 }
 
 
@@ -13,9 +13,9 @@
  */
 #options,
 #rides {
-	width: 50%;
-	margin-left: 50%;
-	border: 1px solid #666;
+	width: 40%;
+	margin-left: 60%;
+	border: 1px solid #999;
 	padding: 1em;
 }
 #tabs {
@@ -31,7 +31,7 @@
 }
 
 #rides li {
-	
+	border-bottom: 1px solid #ccc;
 }
 #rides li span {
 	margin-right: 1em;
@@ -49,6 +49,12 @@
 /*
  * FORM ELEMENTS
  */
+a[name=options] {
+	font-weight: bold;
+}
+a[name=options]:hover {
+	cursor: pointer;
+}
 input {
 	display: inline;
 }
@@ -62,8 +68,8 @@ label {
  */
 .tooltip {
 	position: fixed;
-	width: 25%;
-	min-height: 5em;
+	min-width: 25%;
+	min-height: 4em;
 	padding: 1em;
 	border-radius: 0.5em;
 	box-shadow: 0px 0px 1px 2px rgba(90,90,90,0.3);
@@ -91,4 +97,21 @@ label {
 	border-top-color: #666;
 	border-width: 11px;
 	margin-left: -11px;
+}
+.tooltip h6 {
+	font-weight: bold;
+}
+.tooltip img {
+	float: right;
+}
+.tooltip .close {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-weight bold;
+	color: #999;
+}
+.tooltip .close:hover {
+	cursor: pointer;
+	color: #000;
 }

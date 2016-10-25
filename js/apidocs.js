@@ -12,5 +12,3 @@ GET 'athletes/:id/stats'	// stats for authenticated user only
 //GET 'activities/:id'
 GET 'activities/following'			// activity feed
 GET 'activities/:id/related'		// for group rides?
-
-//GET 'activities/:id/streams/:types'	// the ride data?

@@ -15,15 +15,18 @@ var heatmap = {
 	
 	map: null,
 	
+	infowindow: null,
+	
 	init: function() {
-		console.log("called heatmap.init()");
 		console.log(google);
 		// Set up map:
 		this.map = new google.maps.Map(document.getElementById('map'), {
 			center: new google.maps.LatLng(51.400, -2.600),
 			zoom: 9,
+			disableDefaultUI: true,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
+		// Behaviours:
 		google.maps.event.addListener(this.map, 'zoom_changed', function(e) {
 			destroyTooltips();			
 		});
@@ -38,25 +41,32 @@ var heatmap = {
 			strokeOpacity: 0.6,
 			strokeWeight: 4
 		});
-		ridePath.options = options;	// will adding options to Polyline object like this work/
+		// Embed Strava activity data:
+		ridePath.options = options;
 
-		// Apply to map:
+		// Apply line to map:
 		ridePath.setMap(this.map);
 
 		// Make clickable:
 		google.maps.event.addListener(ridePath, 'click', function(e) {
+			e.stop();	// Don't bubble up
 			heatmap.handlePolyLineClick(e, this);
 		});
 	},
 	
+	// Bevaviour for when polyLine is clicked
 	handlePolyLineClick: function(e, polyLine) {
 		console.log(e, polyLine.options);
 		destroyTooltips();
-		createTooltip({x: e.wa.pageX, y: e.wa.pageY}, polyLine.options);	
+		createTooltip({x: e.wa.pageX, y: e.wa.pageY}, e, polyLine.options);	// first arg is page (x,y); second contains LatLng
 	},
 	
 	selectColor: function(id) {
 		return this.lineColours[id % 10];	// 0-9
+	},
+	
+	togglePolyLine: function(id) {
+		
 	}
 };
 
@@ -66,20 +76,7 @@ var initMap = function() {
 	window.addEventListener('load', function() {
 		if (document.getElementById('map') && google.load && google.maps) {
 			heatmap.init();
-			
-			// Set up data-holding polyLine type:
-/*			heatmap.customPolyline = google.maps.Polyline.extend({
-			    options: {
-			        // default values, you can override these when constructing a new customPolyline
-			        rideId: '',
-					title: 'unknown ride',
-					date: 'today',
-					dist: '',
-					athlete: '',
-					avatar: ''
-			    }
-			});
-*/		
+					
 			// Render the polyLines we stored in the HTML data-attributes:
 			if (heatmap.map) {
 				console.log("entering polyLine loop");				
@@ -95,7 +92,7 @@ var initMap = function() {
 						'athlete': ride.getAttribute('data-athlete'),
 						'avatar': ride.getAttribute('data-avatar')
 					};
-					console.log(ride);
+//					console.log(ride);
 					heatmap.addPolyLine(ride.getAttribute('data-summary'), options);
 				}
 			}
