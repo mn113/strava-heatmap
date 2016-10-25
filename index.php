@@ -1,7 +1,10 @@
 <?php
 // Initialise debug console:
 require_once(__DIR__ . '/vendor/php-console/php-console/src/PhpConsole/__autoload.php');
-$isActiveClient = PhpConsole\Connector::getInstance()->isActiveClient();
+$connector = PhpConsole\Connector::getInstance();
+$handler = PhpConsole\Handler::getInstance();
+$isActiveClient = $connector->isActiveClient();
+PhpConsole\Helper::register();
 
 require_once('config.inc.php');
 require_once('strava-master/StravaApi.php');
@@ -23,7 +26,7 @@ echo '<div id="map"></div>';
 
 // Get me:
 //$myid = 586419;
-//$me = $api->get("athlete");
+$me = $api->get("athlete");
 //print_athlete($me);
 //echo '<hr>';
 //$mystats = $api->get("athletes/$myid/stats");

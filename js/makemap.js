@@ -1,5 +1,18 @@
 var heatmap = {
 
+	lineColours: [
+		'#f44336',
+		'#8bc34a',
+		'#fdd835',
+		'#039be5',
+		'#1a237e',
+		'#e65100',
+		'#aa00ff',
+		'#f06292',
+		'#5d4037',
+		'#18ffff'
+	],
+	
 	map: null,
 	
 	init: function() {
@@ -21,7 +34,7 @@ var heatmap = {
 		var ridePath = new google.maps.Polyline({
 			path: rideCoords,
 			geodesic: true,
-			strokeColor: this.generateColor(options.rideId),
+			strokeColor: this.selectColor(options.rideId),
 			strokeOpacity: 0.6,
 			strokeWeight: 4
 		});
@@ -32,26 +45,18 @@ var heatmap = {
 
 		// Make clickable:
 		google.maps.event.addListener(ridePath, 'click', function(e) {
-			destroyTooltips();
-			console.log(e);
-			createTooltip({x: e.pageX, y: e.pageY});
+			heatmap.handlePolyLineClick(e, this);
 		});
-	},	
+	},
 	
-	generateColor: function(id) {
-		var red = id % 3,					// units as 0,1,2
-			blue = Math.floor(id/10) % 3,	// tens
-			green = Math.floor(id/100) % 3;	// hundreds
-			
-		var code = [red, green, blue].map(function(x) {
-			var dec = Math.round(x * 127) + 1;	// 1, 128, 255
-			var hex = dec.toString(16);			// 1, 80, ff
-			// Zero-padding:
-			if (hex.length === 1) hex = '0' + hex;
-			return hex;
-		});
-			
-		return '#' + code[0] + code[1] + code[2];
+	handlePolyLineClick: function(e, polyLine) {
+		console.log(e, polyLine.options);
+		destroyTooltips();
+		createTooltip({x: e.wa.pageX, y: e.wa.pageY}, polyLine.options);	
+	},
+	
+	selectColor: function(id) {
+		return this.lineColours[id % 10];	// 0-9
 	}
 };
 
@@ -78,11 +83,20 @@ var initMap = function() {
 			// Render the polyLines we stored in the HTML data-attributes:
 			if (heatmap.map) {
 				console.log("entering polyLine loop");				
-				var rides = document.getElementsByTagName('p');
+				var rides = document.getElementsByTagName('li');
 				for (var i = 0; i < rides.length; i++) {
 					var ride = rides[i];
-//					console.log(ride);
-					heatmap.addPolyLine(ride.getAttribute('data-summary'), ride.getAttribute('data-rideId'));
+					var options = {
+						'rideId': ride.getAttribute('data-rideId'),
+						'title': ride.getAttribute('data-title'),
+						'date': ride.getAttribute('data-date'),
+						'dist': ride.getAttribute('data-dist'),
+						'elev': ride.getAttribute('data-elev'),
+						'athlete': ride.getAttribute('data-athlete'),
+						'avatar': ride.getAttribute('data-avatar')
+					};
+					console.log(ride);
+					heatmap.addPolyLine(ride.getAttribute('data-summary'), options);
 				}
 			}
 		}

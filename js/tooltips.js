@@ -1,5 +1,7 @@
-function createTooltip(origin, content) {	// {x:x, y:y}, {title:, date:, dist:, athlete:, avatar:}
+function createTooltip(origin, content) {	// {x:x, y:y}, {rideId:, title:, date:, dist:, elev: athlete:, avatar:}
 
+	console.log("Creating TT:", content.rideId);
+	
 	var el = document.createElement('div');
 	el.classList.add('tooltip');
 	
@@ -12,6 +14,7 @@ function createTooltip(origin, content) {	// {x:x, y:y}, {title:, date:, dist:, 
 		<h6>${content.title}</h6>
 		<span class='date'>${content.date}</span>
 		<span class='dist'>${content.dist}</span>
+		<span class='elev'>${content.elev}</span>
 		<span class='athlete'>${content.athlete}</span>
 		<img class='avatar' src='${content.avatar}'>
 	`;
@@ -32,7 +35,7 @@ function destroyTooltips() {
 }
 
 // Test:
-document.getElementById('map').addEventListener('click', function(e) {
+/*document.getElementById('map').addEventListener('click', function(e) {
 	destroyTooltips();
 	createTooltip({x: e.pageX, y: e.pageY}, {
 		'title': 'My bike ride',
@@ -41,6 +44,6 @@ document.getElementById('map').addEventListener('click', function(e) {
 		'athlete': 'Martin N',
 		'avatar': 'https://dgalywyr863hv.cloudfront.net/pictures/athletes/586419/3809466/2/medium.jpg'
 	});
-});
+});*/
 
 // Zepto version:

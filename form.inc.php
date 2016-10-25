@@ -1,8 +1,10 @@
 <?php
 ?>
 <div id="options">
-	<button type="button" id="friends-btn" class="button-primary">Friends</button>
-	<button type="button" id="clubs-btn">Clubs</button>
+	<div id="tabs>">
+		<button type="button" id="friends-btn" class="button-primary">Friends</button>
+		<button type="button" id="clubs-btn">Clubs</button>
+	</div>
 	
 	<form name="club-selector" style="display:none">
 		<label for="clubs">Your Clubs:</label>

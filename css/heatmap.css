@@ -18,9 +18,10 @@
 	border: 1px solid #666;
 	padding: 1em;
 }
-#options {
+#tabs {
 	text-align: center;
 }
+
 
 /*
  * LISTS
@@ -48,9 +49,6 @@
 /*
  * FORM ELEMENTS
  */
-form {
-	text-align: left;
-}
 input {
 	display: inline;
 }
@@ -64,7 +62,7 @@ label {
  */
 .tooltip {
 	position: fixed;
-	width: 10em;
+	width: 25%;
 	min-height: 5em;
 	padding: 1em;
 	border-radius: 0.5em;

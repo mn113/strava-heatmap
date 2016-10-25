@@ -16,7 +16,15 @@ function format_km($metres) {
 // Print a list of fetched activities as list items:
 function print_list_items($rides) {
 	foreach ($rides as $ride) {
-		echo '<li data-rideId='. $ride->id .' data-summary="'. $ride->map->summary_polyline .'">';
+		$ath = $ride->athlete;
+		echo '<li data-rideId="'. $ride->id . '"' . 
+			' data-date="'. format_date($ride->start_date_local) . '"' . 
+			' data-title="'. $ride->name . '"' .
+			' data-dist="'. format_km($ride->distance) . '"' . 
+			' data-elev="'. $ride->total_elevation_gain . '"' . 
+			' data-athlete="'. $ath->firstname . ' ' . $ath->lastname . '"' . 
+			' data-avatar="'. $ath->profile . '"' .
+			' data-summary="'. $ride->map->summary_polyline . '">';
 			echo '<input type="checkbox" name="'. $ride->id .'" checked>';
 			print_ride_details($ride);
 		echo '</li>';
