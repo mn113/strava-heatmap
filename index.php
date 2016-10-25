@@ -18,6 +18,8 @@ $api->setAccessToken($accessToken);
 // Start HTML:
 include('header.inc.php');
 
+echo '<div id="map"></div>';
+
 
 // Get me:
 //$myid = 586419;
@@ -45,13 +47,7 @@ foreach ($friend_rides as $fride) {
 	echo '<p data-rideId='. $fride->id .' data-summary="'. $fride->map->summary_polyline .'">';
 		print_ride_details($fride);
 	echo '</p>';
-
-//			polyLines.push({
-//				'id': $fride->id,
-//				'summary': '{$fride->map->summary_polyline}'
-//			});
 	echo '<hr>';
 }
-
 
 include('footer.inc.php');

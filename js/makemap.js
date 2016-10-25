@@ -26,8 +26,9 @@ var heatmap = {
 		// Apply to map:
 		ridePath.setMap(this.map);
 		// Make clickable:
-		google.maps.event.addListener(ridePath, 'click', function() {
-			alert(ridePath.rideId);
+		google.maps.event.addListener(ridePath, 'click', function(e) {
+			destroyTooltips();
+			createTooltip({x: e.pageX, y: e.pageY});
 		});
 	},	
 	
@@ -65,7 +66,7 @@ var initMap = function() {
 				var rides = document.getElementsByTagName('p');
 				for (var i = 0; i < rides.length; i++) {
 					var ride = rides[i];
-					console.log(ride);
+//					console.log(ride);
 					heatmap.addPolyLine(ride.getAttribute('data-summary'), ride.getAttribute('data-rideId'));
 				}
 			}
