@@ -11,23 +11,29 @@ var heatmap = {
 			zoom: 9,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
+		google.maps.event.addListener(this.map, 'zoom_changed', function(e) {
+			destroyTooltips();			
+		});
 	},
 	
-	addPolyLine: function(pLine, rideId) {
+	addPolyLine: function(pLine, options) {
 		var rideCoords = google.maps.geometry.encoding.decodePath(pLine);
 		var ridePath = new google.maps.Polyline({
 			path: rideCoords,
 			geodesic: true,
-			rideId: rideId,
-			strokeColor: this.generateColor(rideId),
-			strokeOpacity: 0.5,
+			strokeColor: this.generateColor(options.rideId),
+			strokeOpacity: 0.6,
 			strokeWeight: 4
 		});
+		ridePath.options = options;	// will adding options to Polyline object like this work/
+
 		// Apply to map:
 		ridePath.setMap(this.map);
+
 		// Make clickable:
 		google.maps.event.addListener(ridePath, 'click', function(e) {
 			destroyTooltips();
+			console.log(e);
 			createTooltip({x: e.pageX, y: e.pageY});
 		});
 	},	
@@ -50,16 +56,25 @@ var heatmap = {
 };
 
 
-// Filled in later by PHP:
-//var polyLines = [];
-
-
 // Callback of Google Maps API call:
 var initMap = function() {
 	window.addEventListener('load', function() {
-		if (document.getElementById('map') && google.load) {
+		if (document.getElementById('map') && google.load && google.maps) {
 			heatmap.init();
-
+			
+			// Set up data-holding polyLine type:
+/*			heatmap.customPolyline = google.maps.Polyline.extend({
+			    options: {
+			        // default values, you can override these when constructing a new customPolyline
+			        rideId: '',
+					title: 'unknown ride',
+					date: 'today',
+					dist: '',
+					athlete: '',
+					avatar: ''
+			    }
+			});
+*/		
 			// Render the polyLines we stored in the HTML data-attributes:
 			if (heatmap.map) {
 				console.log("entering polyLine loop");				

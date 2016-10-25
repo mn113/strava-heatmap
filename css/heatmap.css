@@ -2,7 +2,60 @@
  * element that contains the map. */
 #map {
 	height: 25em;
-	width: 30em;
+	width: 50%;
+	float: left;
+	border: 1px solid #666;
+}
+
+
+/*
+ * LAYOUT
+ */
+#options,
+#rides {
+	width: 50%;
+	margin-left: 50%;
+	border: 1px solid #666;
+	padding: 1em;
+}
+#options {
+	text-align: center;
+}
+
+/*
+ * LISTS
+ */
+#rides ul {
+	list-style: none;
+}
+
+#rides li {
+	
+}
+#rides li span {
+	margin-right: 1em;
+}
+.athlete {
+	
+}
+.avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+}
+
+
+/*
+ * FORM ELEMENTS
+ */
+form {
+	text-align: left;
+}
+input {
+	display: inline;
+}
+label {
+	display: inline;
 }
 
 
@@ -40,9 +93,4 @@
 	border-top-color: #666;
 	border-width: 11px;
 	margin-left: -11px;
-}
-.tooltip .avatar {
-	width: 40px;
-	height: 40px;
-	border-radius: 20px;
 }

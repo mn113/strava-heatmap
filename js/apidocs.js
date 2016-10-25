@@ -1,7 +1,7 @@
 
 GET 'clubs/:id'
 //GET 'clubs/:id/members'
-GET 'clubs/:id/activities'	// up to 200 latest activities
+GET 'clubs/:id/activities'	// up to 200 latest club activities
 
 GET 'athlete'				// authenticated user - i.e. me
 GET 'athlete/activities'	// rides for authenticated user only

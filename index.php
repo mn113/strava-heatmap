@@ -30,24 +30,21 @@ echo '<div id="map"></div>';
 //print_stats($mystats);
 //echo '<hr>';
 
-// Get one club member:
-//$roadcc = $api->get("clubs/10360/members");
-//$aguy = $roadcc[rand(0,10)];
-//print_athlete($aguy);
-//echo '<hr>';
+include('form.inc.php');
 
-// Get a ride:
-//$aride = $api->get("activities/748612620");
-//print_ridemap($aride);
-echo '<hr>';
+echo '<div id="rides">';
+	// Get friends' rides:
+	echo '<ul id="friends_rides">';
+		$friend_rides = $api->get("activities/following", ['per_page' => 10, 'page' => 1]);
+		print_list_items($friend_rides);
+	echo '</ul>';
 
-// Get friends' rides:
-$friend_rides = $api->get("activities/following", ['per_page' => 10, 'page' => 1]);
-foreach ($friend_rides as $fride) {
-	echo '<p data-rideId='. $fride->id .' data-summary="'. $fride->map->summary_polyline .'">';
-		print_ride_details($fride);
-	echo '</p>';
-	echo '<hr>';
-}
+	// Get club rides:
+	echo '<ul id="club_rides" style="display:none">';
+		$club_rides = $api->get("clubs/10360/activities", ['per_page' => 20, 'page' => 1]);
+		print_list_items($club_rides);
+	echo '</ul>';
+echo '</div>';
+
 
 include('footer.inc.php');
