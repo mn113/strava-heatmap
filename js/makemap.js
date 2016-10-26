@@ -15,87 +15,117 @@ var heatmap = {
 	
 	map: null,
 	
-	infowindow: null,
+	paths: {},
 	
 	init: function() {
-		console.log(google);
-		// Set up map:
-		this.map = new google.maps.Map(document.getElementById('map'), {
-			center: new google.maps.LatLng(51.400, -2.600),
-			zoom: 9,
-			disableDefaultUI: true,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		});
+		var bristol = 	[51.400, -2.600],
+			bath = 		[51.375801, -2.359904],
+			bradford = 	[51.345178, -2.252502],
+			bbb = [bristol, bath, bradford];
+			
+		this.map = L.map('map').setView(bristol, 9);
+		
+		L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
+		    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		    maxZoom: 18,
+		    accessToken: 'pk.eyJ1IjoibWVlcmthdG9yIiwiYSI6ImNpdXF4Mm91azAwMGEyb21pcDFmN3J5NXcifQ.pW6SQDz9wpFr619vzHtcAA'
+		}).addTo(this.map);
+		
+		// Add any paths we have stored:
+		this.addSessionPaths();
+
 		// Behaviours:
-		google.maps.event.addListener(this.map, 'zoom_changed', function(e) {
-			destroyTooltips();			
-		});
+//		google.maps.event.addListener(this.map, 'zoom_changed', function(e) {
+//			destroyTooltips();			
+//		});
 	},
 	
-	addPolyLine: function(pLine, options) {
-		var rideCoords = google.maps.geometry.encoding.decodePath(pLine);
-		var ridePath = new google.maps.Polyline({
-			path: rideCoords,
-			geodesic: true,
-			strokeColor: this.selectColor(options.rideId),
-			strokeOpacity: 0.6,
-			strokeWeight: 4
-		});
-		// Embed Strava activity data:
-		ridePath.options = options;
+	addPath: function(data) {
+		// Convert Strava's Polyline to coords:
+		var rideCoords = window.polyline.decode(data.path);
 
-		// Apply line to map:
-		ridePath.setMap(this.map);
+		// Create path:
+		var ridePath = L.polyline(rideCoords, {
+							color: this.selectColor(data.rideId) || 'red',
+							opacity: '0.8'
+						});
+		ridePath.addTo(heatmap.map);
+//		heatmap.map.fitBounds(ridePath.getBounds());
 
-		// Make clickable:
-		google.maps.event.addListener(ridePath, 'click', function(e) {
-			e.stop();	// Don't bubble up
-			heatmap.handlePolyLineClick(e, this);
+		// Embed Strava activity data in path:
+		ridePath.data = data;
+
+		// Prepare tooltip:
+		ridePath.tooltipContent = `
+			<h6 id="${data.rideId}">${data.title}</h6>
+			<img class='avatar' src='${data.avatar}'>
+			<span class='date'>${data.date}</span>
+			<span class='athlete'>${data.athlete}</span>
+			<br>
+			<span class='dist'>${data.dist}</span>
+			<span class='elev'>${data.elev}</span>
+		`;
+
+		// Make path clickable:
+		ridePath.on('click', function(e) {
+			// Create new point and open a tooltip there:
+			var point = L.latLng(e.latlng);
+			heatmap.map.openPopup(this.tooltipContent, point);
 		});
+
+		// Register path:
+		heatmap.paths[data.rideId] = ridePath;
 	},
 	
-	// Bevaviour for when polyLine is clicked
-	handlePolyLineClick: function(e, polyLine) {
-		console.log(e, polyLine.options);
-		destroyTooltips();
-		createTooltip({x: e.wa.pageX, y: e.wa.pageY}, e, polyLine.options);	// first arg is page (x,y); second contains LatLng
+	addSessionPaths: function() {
+		
 	},
 	
 	selectColor: function(id) {
 		return this.lineColours[id % 10];	// 0-9
 	},
 	
-	togglePolyLine: function(id) {
+	togglePath: function(id) {
 		
 	}
 };
 
 
-// Callback of Google Maps API call:
-var initMap = function() {
-	window.addEventListener('load', function() {
-		if (document.getElementById('map') && google.load && google.maps) {
-			heatmap.init();
-					
-			// Render the polyLines we stored in the HTML data-attributes:
-			if (heatmap.map) {
-				console.log("entering polyLine loop");				
-				var rides = document.getElementsByTagName('li');
-				for (var i = 0; i < rides.length; i++) {
-					var ride = rides[i];
-					var options = {
-						'rideId': ride.getAttribute('data-rideId'),
-						'title': ride.getAttribute('data-title'),
-						'date': ride.getAttribute('data-date'),
-						'dist': ride.getAttribute('data-dist'),
-						'elev': ride.getAttribute('data-elev'),
-						'athlete': ride.getAttribute('data-athlete'),
-						'avatar': ride.getAttribute('data-avatar')
-					};
-//					console.log(ride);
-					heatmap.addPolyLine(ride.getAttribute('data-summary'), options);
-				}
-			}
+// DOM ready:
+Zepto(function($) {
+	heatmap.init();	
+
+	// Render the polyLines we stored in the HTML data-attributes:
+	if (heatmap.map) {
+		var rides = document.getElementsByTagName('li');
+		for (var i = 0; i < rides.length; i++) {
+			var ride = rides[i];
+			var data = {
+				'rideId': ride.getAttribute('data-rideId'),
+				'title': ride.getAttribute('data-title'),
+				'date': ride.getAttribute('data-date'),
+				'dist': ride.getAttribute('data-dist'),
+				'elev': ride.getAttribute('data-elev'),
+				'athlete': ride.getAttribute('data-athlete'),
+				'avatar': ride.getAttribute('data-avatar'),
+				'path': ride.getAttribute('data-summary')
+			};
+//			console.log(data);
+			heatmap.addPath(data);
 		}
-	}, false);
-};
+	}
+
+	// Checkbox path toggles:
+	$("#rides ul li").children("input[type=checkbox]").on('change', function() {
+		var rideId = $(this).parent("li").attr("data-rideId");
+//		console.log(rideId, this.checked);
+		if (this.checked) {
+			heatmap.paths[rideId].addTo(heatmap.map);
+		} else {
+			heatmap.paths[rideId].remove();
+		}
+	});
+
+});
+
+

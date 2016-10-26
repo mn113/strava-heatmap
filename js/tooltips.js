@@ -22,17 +22,16 @@ function createTooltip(origin, e, content) {	// {x:x, y:y}, e, {rideId:, title:,
 	`;
 
 	// Insert:
-	$('body').append(el);
+//	$('body').append(el);
 	
 	// Position tooltip triangle point on click:
-	el.style.left = origin.x - ($(el).width() / 2) + 'px';
-	el.style.top = origin.y - $(el).height() - 10 + 'px';	
+//	el.style.left = origin.x - ($(el).width() / 2) + 'px';
+//	el.style.top = origin.y - $(el).height() - 10 + 'px';	
 
-	// GMaps Infowindow:
-	heatmap.infowindow = new google.maps.InfoWindow({
-          content: el.innerHTML
-    });
-    heatmap.infowindow.open(map, new google.maps.LatLng(e.latLng));
+	// Open GMaps Infowindow:
+	heatmap.map.panTo(e.latLng);
+	heatmap.infowindow.content = el.innerHTML;
+	heatmap.infowindow.open(heatmap.map, e.latLng);
 
 }
 

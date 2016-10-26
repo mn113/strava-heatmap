@@ -42,11 +42,11 @@ function print_list_items($rides) {
 function print_ride_details($ride) {
 	echo '<span>'. format_date($ride->start_date_local) .'</span>';
 	echo '<span>'. $ride->name .'</span>';
-	echo '<span>'. format_km($ride->distance) .'</span>';
-	echo '<span>'. format_elev($ride->total_elevation_gain) . '</span>';
 	echo '<div>';
 		print_athlete($ride->athlete);
 	echo '</div>';
+	echo '<span>'. format_km($ride->distance) .'</span>';
+	echo '<span>'. format_elev($ride->total_elevation_gain) . '</span>';
 }
 
 

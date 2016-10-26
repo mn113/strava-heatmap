@@ -10,9 +10,9 @@
 	<link href="css/heatmap.css" rel="stylesheet" media="screen">
 	<link href="favicon.ico" rel="icon" type="image/x-icon">
 	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-	<script src="http://www.google.com/jsapi"></script>
+	<link href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" rel="stylesheet" />
+	
 	<script src="js/3rdparty/zepto.min.js"></script>
-	<script src="js/makemap.js"></script>
+	<script src="js/3rdparty/polyline.js"></script>
 </head>
 <body>
