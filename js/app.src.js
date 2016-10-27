@@ -34,10 +34,8 @@ var heatmap = {
 		// Add any paths we have stored:
 		this.addSessionPaths();
 
-		// Behaviours:
-//		google.maps.event.addListener(this.map, 'zoom_changed', function(e) {
-//			destroyTooltips();			
-//		});
+		// Map behaviours:
+
 	},
 	
 	addPath: function(data) {
@@ -50,7 +48,7 @@ var heatmap = {
 							opacity: '0.8'
 						});
 		ridePath.addTo(heatmap.map);
-//		heatmap.map.fitBounds(ridePath.getBounds());
+//		heatmap.map.fitBounds(ridePath.getBounds());	// SOMETIMES INVALID
 
 		// Embed Strava activity data in path:
 		ridePath.data = data;
@@ -59,11 +57,10 @@ var heatmap = {
 		ridePath.tooltipContent = `
 			<h6 id="${data.rideId}">${data.title}</h6>
 			<img class='avatar' src='${data.avatar}'>
-			<span class='date'>${data.date}</span>
-			<span class='athlete'>${data.athlete}</span>
-			<br>
-			<span class='dist'>${data.dist}</span>
-			<span class='elev'>${data.elev}</span>
+			<span class='date'>${data.date}&nbsp;${data.time}</span>
+			<div class='athlete'>${data.athlete}</div>
+			<span>${data.dist}&nbsp;${data.elev}</span>
+			<span class="icon ${data.type}">
 		`;
 
 		// Make path clickable:
@@ -104,6 +101,8 @@ Zepto(function($) {
 				'rideId': ride.getAttribute('data-rideId'),
 				'title': ride.getAttribute('data-title'),
 				'date': ride.getAttribute('data-date'),
+				'time': ride.getAttribute('data-time'),
+				'type': ride.getAttribute('data-type'),
 				'dist': ride.getAttribute('data-dist'),
 				'elev': ride.getAttribute('data-elev'),
 				'athlete': ride.getAttribute('data-athlete'),

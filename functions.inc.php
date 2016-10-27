@@ -3,7 +3,7 @@
 // Improve Strava's datetime formatting:
 function format_date($utc_date) {
 	$d = strtotime($utc_date);
-	return date('d M', $d);
+	return [date('d M', $d), date('H:i', $d)];
 }
 
 
@@ -24,8 +24,10 @@ function print_list_items($rides) {
 	foreach ($rides as $ride) {
 		$ath = $ride->athlete;
 		echo '<li data-rideId="'. $ride->id . '"' . 
-			' data-date="'. format_date($ride->start_date_local) . '"' . 
+			' data-date="'. format_date($ride->start_date_local)[0] . '"' . 
+			' data-time="'. format_date($ride->start_date_local)[1] . '"' . 
 			' data-title="'. $ride->name . '"' .
+			' data-type="'. $ride->type . '"' .
 			' data-dist="'. format_km($ride->distance) . '"' . 
 			' data-elev="'. format_elev($ride->total_elevation_gain) . '"' . 
 			' data-athlete="'. $ath->firstname . ' ' . $ath->lastname . '"' . 
@@ -40,20 +42,21 @@ function print_list_items($rides) {
 
 // Print a single formatted line with ride data and athlete data:
 function print_ride_details($ride) {
-	echo '<span>'. format_date($ride->start_date_local) .'</span>';
-	echo '<span>'. $ride->name .'</span>';
+	echo '<h6>'. $ride->name .'</h6>';
+	echo '<span>'. format_date($ride->start_date_local)[0] . ' ' . format_date($ride->start_date_local)[1] .'</span>';
 	echo '<div>';
 		print_athlete($ride->athlete);
 	echo '</div>';
 	echo '<span>'. format_km($ride->distance) .'</span>';
 	echo '<span>'. format_elev($ride->total_elevation_gain) . '</span>';
+	echo '<span class="icon '. $ride->type .'">';
 }
 
 
 // Print a single formatted line with some athlete data:
 function print_athlete($ath) {
 	echo '<img class="avatar" src="'. $ath->profile .'">';
-	echo '<span>'. $ath->firstname . ' ' . $ath->lastname .'</span>';
+	echo '<span class="athlete">'. $ath->firstname . ' ' . $ath->lastname .'</span>';
 	echo '<span>'. $ath->city .'</span>';
 }
 
