@@ -1,69 +1,82 @@
 var heatmap = {
-	
-	map: null,
-	
-	layerGroups: {},		// friends, club1, club2...
-	
-//	layerControl: null,
-	
-	paths: {},
-	
-	rides: {},
 
-	
+	map: null,
+	layerGroups: { "Friends": new L.LayerGroup() },		// friends, club1, club2...
+	layerControl: null,
+	paths: {},	//?
+//	rides: {},	//?			// use one of these for toggling data?
+
+
 	init: function() {
-		// Define MapBox basemap ('light'):			
-		var light = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
-		    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-		    accessToken: 'pk.eyJ1IjoibWVlcmthdG9yIiwiYSI6ImNpdXF4Mm91azAwMGEyb21pcDFmN3J5NXcifQ.pW6SQDz9wpFr619vzHtcAA',
-		    maxZoom: 20,
-			id: 'light'
+		// Define MapBox basemap ('light'):
+		var attribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
+			mapboxBaseUrl = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=',
+			access_token = 'pk.eyJ1IjoibWVlcmthdG9yIiwiYSI6ImNpdXF4Mm91azAwMGEyb21pcDFmN3J5NXcifQ.pW6SQDz9wpFr619vzHtcAA';
+
+		var lightBase = L.tileLayer(
+			mapboxBaseUrl + access_token, {
+			    attribution: attribution,
+			    maxZoom: 20,
+				id: 'lightBase'
 		});
 
 		var bristol = [51.400, -2.600];
-		
+
 		// Initialise map:
 		this.map = L.map('map', {
 			center: bristol,
 			zoom: 9,
-			layers: [light]
+			layers: [lightBase]
 		});
-		
+
 		this.initLayers();
 	},
-	
-	
+
+
 	initLayers: function() {
 		// Set up initial layers:
-		this.layerGroups = {
-		    "Friends": L.layerGroup()	// empty to begin with
-		};
-		this.layerControl = new L.control.layers(null, this.layerGroups, {hideSingleBase: true}).addTo(this.map);
-		this.layerControl.addOverlay(L.layerGroup(), "Club1");	// for adding new layers dynamically		
+//		var firstLayer = {
+//		    "Friends": new L.LayerGroup()	// empty to begin with
+//		};
+		// Make layer control:
+		this.layerControl = new L.Control.Layers(null, this.layerGroups, { hideSingleBase: true });
+		this.layerControl.addTo(this.map);
+	},
+
+
+	makeLayerGroup: function(name) {
+		// Make named layer:
+		var newLayerGroup = new L.LayerGroup();
+//			lid = newLayerGroup.getLayerId();	// CANNOT
+		console.log("Made", name, newLayerGroup);
+
+		// Add to map:
+		newLayerGroup.addTo(this.map);
+
+		// Add map control for this layer:
+		this.layerControl.addOverlay(newLayerGroup, name);	// for adding new layers dynamically // NOT WORKING
+		this.layerControl.expand();				// ok
+
+		// Store it:
+		this.layerGroups[name] = newLayerGroup;
+
+//		console.log("Layer", name, getLayer(lid), lid);
+		return newLayerGroup;
 	},
 
 
 	createPath: function(data) {
-		
-		
-	},
-	
-
-	addPathToLayer: function(data, layerName) {
 		// Convert Strava's Polyline to coords:
 		var rideCoords = window.polyline.decode(data.path);
 
 		// Create path:
 		var ridePath = L.polyline(rideCoords, {
-							color: this.selectColour(data.rideId) || 'red',
+							color: ui.selectColour(data.rideId) || 'red',
 							opacity: '0.8'
 						});
-		
-//		ridePath.addTo(heatmap.map);						// works but not what I want
-		ridePath.addTo(heatmap.layerGroups[layerName]);		// SYNTAX ??
 
 		// Embed Strava activity data in path:
-		data.color = this.selectColour(data.rideId);
+		data.color = ui.selectColour(data.rideId);
 		ridePath.data = data;
 
 		// Prepare its tooltip:
@@ -86,28 +99,32 @@ var heatmap = {
 
 		// Register path:
 		heatmap.paths[data.rideId] = ridePath;
+
+		return ridePath;
 	},
-	
-	addSessionPaths: function() {
-		
+
+
+	addPathToLayerGroup: function(path, layerName) {
+//		path.addTo(heatmap.layerGroups[layerName]);
+		this.layerGroups[layerName].addLayer(path);
+//		var targetLayer = this.getLayerByName(layerName);
+//		if (targetLayer) {
+//			path.addTo(targetLayer);
+//		}
 	},
-	
-	selectColour: function(rid) {
-		var lineColours = [
-			'#f44336',
-			'#8bc34a',
-			'#fdd835',
-			'#039be5',
-			'#1a237e',
-			'#e65100',
-			'#aa00ff',
-			'#f06292',
-			'#cddc39',
-			'#18ffff'
-		];
-		return lineColours[rid % 10];	// 0-9
+
+
+	getLayerByName: function(name) {
+		for (var i = 0; i < this.layerGroups.length; i++) {
+			layerGroup = layerGroups[i];
+			if (layerGroup.name === name) {
+				return layerGroup.layer;
+			}
+		}
+		return false;
 	},
-	
+
+
 	highlightPath: function(rideId) {
 		// Zoom map to path's bounds:
 		var bounds = heatmap.paths[rideId].getBounds();
@@ -127,10 +144,11 @@ var heatmap = {
 				$(".auto_hide").animate({opacity: 0}, 700, function() {
 					flasher.remove();
 				});
-			}, 1000);			
+			}, 1000);
 		}, 2000);
 	},
-	
+
+
 	populateFriendsLayer: function() {
 		$("#friends_rides li").each(function(index, el) {
 			var ride = $(el);
@@ -147,32 +165,81 @@ var heatmap = {
 				'avatar': ride.data('avatar'),
 				'path': ride.data('summary')
 			};
-			// Add to the Friends layer:
-			heatmap.addPathToLayer(data, 'Friends');
+			// Add path to the Friends layer:
+			var newPath = heatmap.createPath(data);
+			heatmap.addPathToLayerGroup(newPath, 'Friends');
+
 			// Set layer visible:
-			heatmap.map.addLayer(heatmap.layerGroups['Friends']);
+//			heatmap.map.addLayer(heatmap.getLayerByName('Friends'));
+		});
+	},
+
+
+	populateClubLayer: function(cid) {
+		// Create new layer for this club:
+//		var clubname = 'TBD';	// TODO!
+		console.log("Making map layer: Club" + cid);
+		heatmap.makeLayerGroup('Club'+cid);
+		console.log(heatmap.map.hasLayer('Club'+cid));	// false
+
+		// Set layer visible:
+//		heatmap.map.addLayer(heatmap.layerGroups['Club'+cid]);	// ERROR
+
+		$(".club_rides[data-clubid='"+ cid +"'] li").each(function(index, el) {
+			var ride = $(el);
+			// Extract data-attributes from <li>:
+			var data = {
+				'rideId': ride.data('rideid'),
+				'title': ride.data('title'),
+				'date': ride.data('date'),
+				'time': ride.data('time'),
+				'type': ride.data('type'),
+				'dist': ride.data('dist'),
+				'elev': ride.data('elev'),
+				'athlete': ride.data('athlete'),
+				'avatar': ride.data('avatar'),
+				'path': ride.data('summary')
+			};
+
+			// Make path from the data:
+			var newPath = heatmap.createPath(data);
+
+			// Add path to the new layer:
+			heatmap.addPathToLayerGroup(newPath, 'Club'+cid);
 		});
 	}
 };
 
 
 var ui = {
-	clubs: [],	// ARRAY OR OBJECT WITH KEYS=CID?
-	
-	activeClub: null,
-	
+	clubs: [],	// FILL THIS *AFTER* DROPDOWN GENERATED
+
+	activeClub: null,	// SET *AFTER* DROPDOWN GENERATED
+
 	getClubs: function() {
 		// Ajax request to API:
-		this.clubs = ajaxGetClubs();	// RETURNS HTML
-//		if (this.clubs.length > 0) {
-//			this.setClub(clubs[0]);
-//		}
-		console.log(this.clubs);
+		ajaxGetClubs();
 	},
-	
+
 	setClub: function(cid) {
 		this.activeClub = cid;
-	}
+	},
+
+	selectColour: function(rid) {
+		var lineColours = [
+			'#f44336',
+			'#8bc34a',
+			'#fdd835',
+			'#039be5',
+			'#1a237e',
+			'#e65100',
+			'#aa00ff',
+			'#f06292',
+			'#cddc39',
+			'#18ffff'
+		];
+		return lineColours[rid % 10];	// 0-9
+	},
 };
 
 
@@ -184,7 +251,7 @@ Zepto(function($) {
 	if (heatmap.map) {
 		heatmap.populateFriendsLayer();		// OK
 	}
-	
+
 	// Fetch clubs:
 	ui.getClubs();
 
@@ -210,18 +277,18 @@ Zepto(function($) {
 		$("#sidebar").removeClass('friends').addClass('clubs');
 		$('#friends-btn').removeClass('button-primary');
 		$(this).addClass('button-primary');
-	});	
+	});
 
-	
+
 	// Club selector AJAX behaviour:
 	$("select[name=clubs]").on("change", function() {
-		var cid = $(this).val();
+		var cid = $(this).find("option:checked").data("cid");
 		// Check whether <ul> with data-clubid exists:
 		var matches = $('.club_rides[data-clubid="' + cid + '"]');
 		if (matches.length === 0) {
 			// Load it by ajax:
 			console.log('AJAX-fetching activites from club', cid);
-			ajaxStravaRequest('club_activities', cid);
+			ajaxGetClubRides(cid);
 		}
 		else {
 			// It already exists, so set it active:
@@ -229,12 +296,12 @@ Zepto(function($) {
 			$(matches).addClass("active");
 		}
 	});
-	
-	
+
+
 	// Add text colour to the ride titles, generating from the data-rideId:
 	$("li > h6").each(function(index, el) {
 		var rid = $(el).parent().data("rideid");
-		$(el).css("color", heatmap.selectColour(rid));
+		$(el).css("color", ui.selectColour(rid));
 	});
-	
+
 });

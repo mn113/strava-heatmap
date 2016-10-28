@@ -16,38 +16,28 @@ $api->setAccessToken($accessToken);
 $resource = trim($_GET['resource']);
 $id = (int)trim($_GET['id']);
 
-if(isset($resource) && !empty($resource)) {
-
-	if ($resource == 'club_activities') {
-		$club_rides = get_club_activities($id);
-		$html = print_list_items($club_rides);
-		// Output data for ajax response:
-		echo json_encode($html);
-	}
-	else if ($resource == 'friend_activities') {
-		$friend_rides = get_friend_activities();
-		$html = print_list_items($friend_rides);
-		// Output data for ajax response:
-		echo json_encode($html);
-	}
-	else if ($resource == 'clubs') {
-		$clubs = get_athlete_clubs(1);
-		$html = print_clubs($clubs);
-		// Output data for ajax response:
-		echo json_encode($html);
-	}
-	else if ($resource == 'athlete') {
-		$me = $api->get("athlete");
-		$html = print_athlete($me);
-		// Output data for ajax response:
-		echo json_encode($html);
-	}
-	else {
-		echo 'Invalid or missing resource ' . $resource;
-	}
+if(!isset($resource)|| empty($resource)) {
+	echo 'Invalid or missing resource';
 }
 else {
-	echo 'Invalid or missing resource';
+	// In each case, make API call, then format return string as HTML:
+	$html = '';
+
+	if ($resource == 'club_activities') {
+		$html = print_list_items(get_club_activities($id));
+	}
+	else if ($resource == 'friend_activities') {
+		$html = print_list_items(get_friend_activities());
+	}
+	else if ($resource == 'clubs') {
+		$html = print_clubs(get_athlete_clubs(1));
+	}
+	else if ($resource == 'athlete') {
+		$html = print_athlete($api->get("athlete"));
+	}
+
+	// Output data for ajax response:
+	echo json_encode($html);
 }
 
 

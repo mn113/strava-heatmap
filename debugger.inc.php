@@ -6,5 +6,5 @@ $handler = PhpConsole\Handler::getInstance();
 $handler->start(); // initialize handlers
 $isActiveClient = $connector->isActiveClient();
 PhpConsole\Helper::register();
-PC::debug($handler, "PC");
+//PC::debug($handler, "PC");
 
