@@ -25,21 +25,5 @@
 	</form>
 </div>
 
-<script type="text/javascript">
-	// Options form behaviour:
-	$('#options a[name=options]').click(function() {
-		var form = $('form[name=map-options]');
-
-		if ($(form).hasClass("open")) {
-			$(form).removeClass("open");
-			$(this).children('span').html("&rtrif;");	// icon ▸ (closed)
-		}
-		else {
-			$(form).addClass("open");
-			$(this).children('span').html("&dtrif;");	// icon ▾ (open)
-		}
-	});
-</script>
-
 <?php
 // end of form.inc.php

@@ -1,8 +1,8 @@
-/*global L, $, Zepto*/
+/*global heatmap, renderer, ui, Zepto, $, L */
 var heatmap = {
 
 	map: null,
-	layerGroups: { "Friends": new L.LayerGroup() },		// friends, club1, club2...
+	layerGroups: null,		// friends, club1, club2...
 	layerControl: null,
 	paths: {},	//?
 //	rides: {},	//?			// use one of these for toggling data?
@@ -39,9 +39,8 @@ var heatmap = {
 
 	initLayers: function() {
 		// Set up initial layers:
-//		var firstLayer = {
-//		    "Friends": new L.LayerGroup()	// empty to begin with
-//		};
+        this.layerGroups = { "Friends": new L.LayerGroup() };
+
 		// Make layer control:
 		this.layerControl = new L.Control.Layers(null, this.layerGroups, { hideSingleBase: true });
 		this.layerControl.addTo(this.map);
@@ -146,6 +145,21 @@ var heatmap = {
 	},
 
 
+	getClubNameById: function(cid) {
+		if (ui.clubs.length > 0) {
+			// Find matching club in the array:
+			for (var i = 0; i < ui.clubs.length; i++) {
+				var club = ui.clubs[i];
+				if (club.id === cid) {
+					// Match found:
+					return club.name;
+				}
+			}
+		}
+		return false;
+	},
+
+
 	populateFriendsLayer: function() {
 		$(".friends_rides li").each(function(index, el) {
 			var ride = $(el);
@@ -172,17 +186,17 @@ var heatmap = {
 	},
 
 
-	populateClubLayer: function(cid) {
+	populateClubLayer: function(cid) {		// BETTER IF IT WORKED WITH data
 		// Create new layer for this club:
-//		var clubname = 'TBD';	// TODO!
-		console.log("Making map layer: Club" + cid);
-		heatmap.makeLayerGroup('Club'+cid);
-		console.log(heatmap.map.hasLayer('Club'+cid));	// false
+		var clubname = this.getClubNameById(cid);
+		console.log("Making map layer:", clubname);
+		heatmap.makeLayerGroup(clubname);
+		console.log(heatmap.map.hasLayer(clubname));	// false -> need to use layer id?
 
 		// Set layer visible:
-//		heatmap.map.addLayer(heatmap.layerGroups['Club'+cid]);	// ERROR
+//		heatmap.map.addLayer(heatmap.layerGroups[clubname]);	// ERROR
 
-		$(".club_rides[data-clubid='"+ cid +"'] li").each(function(index, el) {
+		$(".club-rides[data-clubid='"+ cid +"'] li").each(function(index, el) {
 			var ride = $(el);
 			// Extract data-attributes from <li>:
 			var data = {
@@ -209,7 +223,7 @@ var heatmap = {
 
 
 var ui = {
-	clubs: [],	// FILL THIS *AFTER* DROPDOWN GENERATED
+	clubs: [],	// Filled after clubs ajax completes
 
 	activeClub: null,	// SET *AFTER* DROPDOWN GENERATED
 
@@ -238,64 +252,3 @@ var ui = {
 		return lineColours[rid % 10];	// 0-9
 	},
 };
-
-
-// DOM ready:
-Zepto(function($) {
-	heatmap.init();
-
-	// Render the polyLines using the data we stored in the HTML <li> data-attributes:
-	if (heatmap.map) {
-		ajaxGetFriendsRides();
-	}
-
-
-	// Club selector AJAX behaviour:
-	$("select[name=clubs]").on("change", function() {
-		var cid = $(this).find("option:checked").data("cid");
-		// Check whether <ul> with data-clubid exists:
-		var matches = $('.club_rides[data-clubid="' + cid + '"]');
-		if (matches.length === 0) {
-			// Load it by ajax:
-			console.log('AJAX-fetching activites from club', cid);
-			ajaxGetClubRides(cid);
-		}
-		else {
-			// It already exists, so set it active:
-			$(".club_rides").removeClass("active");
-			$(matches).addClass("active");
-		}
-	});
-
-
-	// Tab-like behaviour for main buttons:
-	$('#friends-btn').click(function() {
-		$("#sidebar").removeClass('clubs').addClass('friends');
-		$('#clubs-btn').removeClass('button-primary');
-		$(this).addClass('button-primary');
-	});
-	$('#clubs-btn').click(function() {
-		$("#sidebar").removeClass('friends').addClass('clubs');
-		$('#friends-btn').removeClass('button-primary');
-		$(this).addClass('button-primary');
-	});
-
-
-	// Individual ride click behaviour:
-	$("#rides ul li").on('click', function() {
-		// Highlight path:
-		var rid = $(this).attr("data-rideid");
-		heatmap.highlightPath(rid);
-		// Unset & set selected:
-		$(".selected").removeClass("selected");
-		$(this).addClass("selected");
-	});
-
-
-	// Add text colour to the ride titles, generating from the data-rideId:
-	$("li > h6").each(function(index, el) {
-		var rid = $(el).parent().data("rideid");
-		$(el).css("color", ui.selectColour(rid));
-	});
-
-});

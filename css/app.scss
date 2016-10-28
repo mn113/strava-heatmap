@@ -113,10 +113,6 @@ h5 {	/* ACTIVITIES text bar */
 	&:hover, &.selected {
 		background: lighten($primary-color, 40%);
 	}
-
-	span {
-		margin-right: 1em;
-	}
 }
 
 

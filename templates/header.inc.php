@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/app.css">
 	<!-- endinject -->
 	<link href="favicon.ico" rel="icon" type="image/x-icon">
-	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 	<link href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" rel="stylesheet" />
 
 	<!-- inject:js -->
@@ -19,6 +19,7 @@
 	<!-- endinject -->
 	<script src="js/ajax_requests.js"></script>
 	<script src="js/renderer.js"></script>
-	<script>var rides = {}, clubs = null;</script>
+	<script src="js/mapping.js"></script>
+	<script></script>
 </head>
 <body>

@@ -15,7 +15,7 @@
 <div id="rides">
 	<ul class="friends-rides"><!-- Ajax-filled --></ul>
 	<ul class="club-rides" data-clubid=""><!-- Ajax-filled --></ul>
-	<!-- more ul.club_rides to be loaded here -->
+	<!-- more ul.club-rides to be loaded here -->
 </div>
 
 <?php

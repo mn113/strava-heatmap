@@ -14,12 +14,12 @@ $api->setAccessToken($accessToken);
 // Get me:
 $me = $api->get("athlete");
 
-// Get my clubs:
-//$clubs = $api->get("athlete/clubs");
-
 // Start HTML:
 ?>
 <?php include('templates/header.inc.php'); ?>
+<script>
+	var me = <?= json_encode($me); ?>;
+</script>
 
 <section id="main">
 	<div id="map"></div>
