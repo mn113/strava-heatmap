@@ -1,3 +1,4 @@
+/*global L, $, Zepto*/
 var heatmap = {
 
 	map: null,
@@ -9,7 +10,10 @@ var heatmap = {
 
 	init: function() {
 		// Define MapBox basemap ('light'):
-		var attribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
+		var attribution = `
+			Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors
+			<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,
+			Imagery &copy; <a href="http://mapbox.com">Mapbox</a>`,
 			mapboxBaseUrl = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=',
 			access_token = 'pk.eyJ1IjoibWVlcmthdG9yIiwiYSI6ImNpdXF4Mm91azAwMGEyb21pcDFmN3J5NXcifQ.pW6SQDz9wpFr619vzHtcAA';
 
@@ -47,20 +51,18 @@ var heatmap = {
 	makeLayerGroup: function(name) {
 		// Make named layer:
 		var newLayerGroup = new L.LayerGroup();
-//			lid = newLayerGroup.getLayerId();	// CANNOT
 		console.log("Made", name, newLayerGroup);
 
 		// Add to map:
 		newLayerGroup.addTo(this.map);
 
 		// Add map control for this layer:
-		this.layerControl.addOverlay(newLayerGroup, name);	// for adding new layers dynamically // NOT WORKING
-		this.layerControl.expand();				// ok
+		this.layerControl.addOverlay(newLayerGroup, name);
+		this.layerControl.expand();
 
 		// Store it:
 		this.layerGroups[name] = newLayerGroup;
 
-//		console.log("Layer", name, getLayer(lid), lid);
 		return newLayerGroup;
 	},
 
@@ -105,18 +107,13 @@ var heatmap = {
 
 
 	addPathToLayerGroup: function(path, layerName) {
-//		path.addTo(heatmap.layerGroups[layerName]);
 		this.layerGroups[layerName].addLayer(path);
-//		var targetLayer = this.getLayerByName(layerName);
-//		if (targetLayer) {
-//			path.addTo(targetLayer);
-//		}
 	},
 
 
 	getLayerByName: function(name) {
 		for (var i = 0; i < this.layerGroups.length; i++) {
-			layerGroup = layerGroups[i];
+			var layerGroup = this.layerGroups[i];
 			if (layerGroup.name === name) {
 				return layerGroup.layer;
 			}
@@ -150,7 +147,7 @@ var heatmap = {
 
 
 	populateFriendsLayer: function() {
-		$("#friends_rides li").each(function(index, el) {
+		$(".friends_rides li").each(function(index, el) {
 			var ride = $(el);
 			// Extract data-attributes from <li>:
 			var data = {
@@ -249,35 +246,8 @@ Zepto(function($) {
 
 	// Render the polyLines using the data we stored in the HTML <li> data-attributes:
 	if (heatmap.map) {
-		heatmap.populateFriendsLayer();		// OK
+		ajaxGetFriendsRides();
 	}
-
-	// Fetch clubs:
-	ui.getClubs();
-
-
-	// Individual ride click behaviour:
-	$("#rides ul li").on('click', function() {
-		// Highlight path:
-		var rid = $(this).attr("data-rideid");
-		heatmap.highlightPath(rid);
-		// Unset & set selected:
-		$(".selected").removeClass("selected");
-		$(this).addClass("selected");
-	});
-
-
-	// Tab-like behaviour for main buttons:
-	$('#friends-btn').click(function() {
-		$("#sidebar").removeClass('clubs').addClass('friends');
-		$('#clubs-btn').removeClass('button-primary');
-		$(this).addClass('button-primary');
-	});
-	$('#clubs-btn').click(function() {
-		$("#sidebar").removeClass('friends').addClass('clubs');
-		$('#friends-btn').removeClass('button-primary');
-		$(this).addClass('button-primary');
-	});
 
 
 	// Club selector AJAX behaviour:
@@ -295,6 +265,30 @@ Zepto(function($) {
 			$(".club_rides").removeClass("active");
 			$(matches).addClass("active");
 		}
+	});
+
+
+	// Tab-like behaviour for main buttons:
+	$('#friends-btn').click(function() {
+		$("#sidebar").removeClass('clubs').addClass('friends');
+		$('#clubs-btn').removeClass('button-primary');
+		$(this).addClass('button-primary');
+	});
+	$('#clubs-btn').click(function() {
+		$("#sidebar").removeClass('friends').addClass('clubs');
+		$('#friends-btn').removeClass('button-primary');
+		$(this).addClass('button-primary');
+	});
+
+
+	// Individual ride click behaviour:
+	$("#rides ul li").on('click', function() {
+		// Highlight path:
+		var rid = $(this).attr("data-rideid");
+		heatmap.highlightPath(rid);
+		// Unset & set selected:
+		$(".selected").removeClass("selected");
+		$(this).addClass("selected");
 	});
 
 

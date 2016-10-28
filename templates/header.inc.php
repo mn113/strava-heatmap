@@ -13,10 +13,12 @@
 	<link href="favicon.ico" rel="icon" type="image/x-icon">
 	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 	<link href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" rel="stylesheet" />
-	
+
 	<!-- inject:js -->
 	<script src="dist/js/main.min.js"></script>
 	<!-- endinject -->
 	<script src="js/ajax_requests.js"></script>
+	<script src="js/renderer.js"></script>
+	<script>var rides = {}, clubs = null;</script>
 </head>
 <body>

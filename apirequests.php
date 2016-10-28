@@ -24,16 +24,16 @@ else {
 	$html = '';
 
 	if ($resource == 'club_activities') {
-		$html = print_list_items(get_club_activities($id));
+		$html = get_club_activities($id);
 	}
 	else if ($resource == 'friend_activities') {
-		$html = print_list_items(get_friend_activities());
+		$html = get_friend_activities();
 	}
 	else if ($resource == 'clubs') {
-		$html = print_clubs(get_athlete_clubs(1));
+		$html = get_athlete_clubs(1);
 	}
 	else if ($resource == 'athlete') {
-		$html = print_athlete($api->get("athlete"));
+		$html = $api->get("athlete");
 	}
 
 	// Output data for ajax response:
@@ -41,39 +41,42 @@ else {
 }
 
 
+// API-calling function block:
 function get_athlete_clubs($ath_id = null) {
 	global $api;
-	
+
 	if (!$ath_id) {
 		return [10360];	// road.cc
 	}
 	else {
 		$club_list = $api->get("athlete/clubs");
-		
+
 		if (is_array($club_list)) {
-			return $club_list;	
+			return $club_list;
 		}
 	}
 }
 
 
+// API-calling function block:
 function get_club_activities($club_id) {
 	global $api;
 
 	$club_rides = $api->get("clubs/".$club_id."/activities", ['per_page' => 30, 'page' => 1]);
-	
+
 	if (is_array($club_rides)) {
-		return $club_rides;	
+		return $club_rides;
 	}
 }
 
 
+// API-calling function block:
 function get_friend_activities() {
 	global $api;
 
 	$friend_rides = $api->get("activities/following", ['per_page' => 20, 'page' => 1]);
-	
+
 	if (is_array($friend_rides)) {
-		return $friend_rides;	
+		return $friend_rides;
 	}
 }

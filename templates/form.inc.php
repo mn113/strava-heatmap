@@ -5,17 +5,17 @@
 	<form name="map-options">
 		<input type="checkbox" name="exclude-self" checked><label for="exclude-self">Exclude self?</label>
 		<br>
-		
+
 		<label>Include:</label>
 		<input type="checkbox" name="include-rides" checked><label for="exclude-self" checked>rides? </label>
 		<input type="checkbox" name="include-runs"><label for="exclude-self">runs? </label>
 		<input type="checkbox" name="include-others"><label for="exclude-self">other activities?</label>
 		<br>
-		
+
 		<label for="date-range">Show activities from last</label>
 		<input type="text" name="date-range" size="1" value="1"><label>weeks</label>
 		<br>
-		
+
 		<label for="geo-range">Show only activities within</label>
 		<input type="text" name="geo-range" size="3" value="100"><label>km of me</label>
 

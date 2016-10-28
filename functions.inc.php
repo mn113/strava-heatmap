@@ -1,5 +1,5 @@
 <?php
-
+/*
 // Improve Strava's datetime formatting:
 function format_date($utc_date) {
 	$d = strtotime($utc_date);
@@ -29,6 +29,7 @@ function print_list_items($rides) {
 		$html .= '>';
 		$html .= print_ride_details($ride);
 		$html .= '</li>';
+//		$html .= strava2java($ride);	// sends $ride to a javascript variable
 	}
 	return $html;
 }
@@ -59,7 +60,7 @@ function print_ride_details($ride) {
 	$html .= '</div>';
 	$html .= '<span>'. format_km($ride->distance) .'</span>';
 	$html .= '<span>'. format_elev($ride->total_elevation_gain) . '</span>';
-	$html .= '<span class="icon '. $ride->type .'">';
+	$html .= '<span class="icon '. strtolower($ride->type) .'">';
 	return $html;
 }
 
@@ -83,7 +84,7 @@ function print_stats($stats) {
 
 // Return html with the clubs dropdown options:
 function print_clubs($clubs) {
-//	\PC::debug(count($clubs), 'clubs fetched');	// 3
+	\PC::debug(count($clubs), 'clubs fetched');	// 3
 	$html = '';
 	foreach ($clubs as $club) {
 		$html .= '<option data-cid="';
@@ -94,14 +95,13 @@ function print_clubs($clubs) {
 	}
 	return $html;
 }
-
-
-
-/*
-// Echo a PHP Strava API object into a js-var on document.heatmap:
-function strava2java($ride) {
-	echo '<script>';
-		echo 'heatmap.rides['. $ride->id .'] = json_encode('. $ride .');';
-	echo '</script>';
-}
 */
+
+
+// Echo a PHP Strava API object into a js-var on document.heatmap:
+/*function strava2java($ride) {
+	$html  = '<script>';
+	$html .= 'setTimeout(function() {document.rides['. $ride->id .'] = '. json_encode($ride) .';}, 1000)';	// executes inline
+	$html .= '</script>';
+	return $html;
+}*/

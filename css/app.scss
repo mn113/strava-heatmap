@@ -20,23 +20,17 @@ html, body {
 	height: 100%;
 }
 body {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+	@include flexbox(row, wrap)
 }
-#main{
+#main {
 	width: 65%;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
+	@include flexbox(column, nowrap)
 }
 #sidebar {
 	width: 35%;
 	height: 100%;
 	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
+	@include flexbox(column, nowrap)
 	justify-content: flex-start;
 	border-left: 1px solid #999;
 	margin-right: -1px;
@@ -51,7 +45,6 @@ body {
 	flex-grow: 1;
 }
 #rides {
-	xpadding: 1em;
 	flex-grow: 1;
 	height:	auto;
 	overflow: scroll;
@@ -73,21 +66,21 @@ footer {
 	text-align: center;
 }
 .friends {
-	#friends_rides {
+	.friends-rides {
 		display: block;
 	}
-	.club_rides,
-	form[name=club-selector] {
+	.club-rides,
+	form[name="club-selector"] {
 		display: none;
 	}
 }
 
 .clubs {
-	#friends_rides, .club_rides {
+	.friends-rides, .club-rides {
 		display: none;
 	}
-	.club_rides.active,
-	form[name=club-selector] {
+	.club-rides.active,
+	form[name="club-selector"] {
 		display: block;
 	}
 }
@@ -96,8 +89,8 @@ footer {
 /*
  * LISTS
  */
-h5 {
-	padding: 0.4em, 0;
+h5 {	/* ACTIVITIES text bar */
+	padding: 0.6em, 0, 0.4em;
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
@@ -111,62 +104,19 @@ h5 {
 	list-style: none;
 }
 #rides li {
+	position: relative;
 	border-bottom: 1px solid #ccc;
 	margin: 0;
-	padding: 0 1em;
+	padding: 0.3em 1em;
 	line-height: 1.4em;
 
 	&:hover, &.selected {
 		background: lighten($primary-color, 40%);
 	}
-}
-#rides li span {
-	margin-right: 1em;
-}
-.athlete {
-	
-}
-.avatar {
-	width: 48px;
-	height: 48px;
-	border-radius: 24px;
-}
 
-
-/*
- * FORM ELEMENTS
- */
-a[name=options] {
-	font-weight: bold;
-}
-a[name=options]:hover {
-	cursor: pointer;
-}
-a[name=options] span {
-	width: 2em;
-}
-input {
-	display: inline;
-}
-label {
-	display: inline;
-}
-
-#rides input[type=checkbox] {
-	float: left;
-	margin: 2.5em 1em 2.5em 0;	
-}
-form[name=map-options] {
-	height: 0;
-	display: none;
-	transition: height 1s ease-in-out;
-}
-form[name=map-options].open {
-	height: 12em;
-	display: block;
-}
-form {
-	margin-bottom: 0;
+	span {
+		margin-right: 1em;
+	}
 }
 
 
@@ -181,18 +131,65 @@ h6 {
 	font-weight: bold;
 }
 .avatar {
-	float: right;
+	width: 48px;
+	height: 48px;
+	border-radius: 24px;
+	position: absolute;
+	top: 50%;
+	right: 1em;
+	margin-top: -24px;
 }
 .icon {
 	float: left;
 	width: 16px;
 	height: 16px;
+	margin: 0.25em;
+	margin-left: 0;
 }
-.Ride {
+.ride {
 	background: url(../img/ride.svg) 0 -16px;
 }
-.Run {
-	background: url(../img/run.svg) 0 -16px;	
+.run {
+	background: url(../img/run.svg) 0 -16px;
+}
+.kudos {
+	background: url(../img/kudos.svg) 0 -16px;
+}
+
+
+/*
+ * FORM ELEMENTS
+ */
+a[name="options"] {
+	font-weight: bold;
+
+	&:hover {
+		cursor: pointer;
+	}
+	span {
+		width: 2em;
+	}
+}
+input,
+label {
+	display: inline;
+}
+#rides input[type=checkbox] {
+	float: left;
+	margin: 2.5em 1em 2.5em 0;
+}
+form[name="map-options"] {
+	height: 0;
+	display: none;
+	transition: height 1s ease-in-out;
+
+	&.open {
+		height: 12em;
+		display: block;
+	}
+}
+form {
+	margin-bottom: 0;
 }
 
 
@@ -200,11 +197,11 @@ h6 {
  * TOOLTIPS
  */
 .leaflet-popup {
-	xpadding: 0.5em;
+	padding: 0.2em;
 	min-width: 200px;
 }
 .leaflet-popup-content-wrapper {
-	
+
 }
 .leaflet-popup-content {
 	margin: 5px 8px !important;
