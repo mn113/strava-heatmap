@@ -1,3 +1,5 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +8,15 @@
 	<title>Strava heatmap</title>
 
 	<!-- inject:css -->
-	<link href="css/app.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="css/app.css">
 	<!-- endinject -->
 	<link href="favicon.ico" rel="icon" type="image/x-icon">
 	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 	<link href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" rel="stylesheet" />
 	
-	<script src="js/3rdparty/polyline.js"></script>
-	<script src="js/3rdparty/zepto.min.js"></script>
-	<script src="js/3rdparty/zepto.fx.js"></script>
-	<script src="js/3rdparty/zepto.animate.js"></script>
+	<!-- inject:js -->
+	<script src="dist/js/main.min.js"></script>
+	<!-- endinject -->
+	<script src="js/ajax_requests.js"></script>
 </head>
 <body>

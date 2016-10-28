@@ -45,8 +45,7 @@ var myOrderedScripts = [
     'js/3rdparty/polyline.js',
     'js/3rdparty/zepto.min.js',
     'js/3rdparty/zepto.fx.js',
-    'js/3rdparty/zepto.animate.js',
-    'js/app.src.js'
+    'js/3rdparty/zepto.animate.js'
 ];
 // Take javascripts, concatenate them, rename, minify, save:
 gulp.task('scripts', function(callback) {
@@ -98,24 +97,24 @@ gulp.task('clean', function() {
     ]);
 });
 
-/*
+
 // Watch files for changes:
 gulp.task('watch', function() {
     // Watch .scss files
-    gulp.watch('css/taskapp.scss', ['styles']);
+    gulp.watch('css/app.scss', ['styles']);
     // Watch .js files
-    gulp.watch('js/taskapp.js', ['scripts']);
+    gulp.watch('js/app.src.js', ['scripts']);
     // Watch image files
-    gulp.watch('img/*', ['images']);
+//    gulp.watch('img/*', ['images']);
     // Watch html files
-    gulp.watch('taskapp.html', ['html']);
+//    gulp.watch('taskapp.html', ['html']);
 
     // Create LiveReload server
     livereload.listen();
     // Watch any files in dist/, reload on change
     gulp.watch(['dist/**']).on('change', livereload.changed);
 });
-*/
+
 
 // Run 'clean' first, then run 'styles'/'scripts'/'images' concurrently:
 gulp.task('assets', ['clean'], function() {

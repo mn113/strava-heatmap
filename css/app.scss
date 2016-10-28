@@ -1,8 +1,16 @@
 // SASS
 @import 'normalize';
-@import 'skeleton.css';
+@import 'skeleton';
 
 $primary-color: #1EAEDB;	// turquoise
+
+@mixin flexbox($direction, $wrap) {
+	-js-display: flex;
+	/* for polyfill */
+	display: flex;
+	flex-direction: $direction;
+	flex-wrap: $wrap;
+}
 
 
 /*
@@ -39,18 +47,12 @@ body {
 	border-bottom: 1px solid #999;
 }
 #options {
-	padding: 1em;
+	padding: 0.6em;
 	flex-grow: 1;
-	border: 2px solid fuchsia;
-}
-#tabs {
-	padding-top: 0.5em;
-	text-align: center;
 }
 #rides {
-	padding: 1em;
+	xpadding: 1em;
 	flex-grow: 1;
-	padding: 1em;
 	height:	auto;
 	overflow: scroll;
 }
@@ -64,29 +66,31 @@ footer {
 
 
 /*
- * TABS
+ * TABS + BEHAVIOUR
  */
-#tabs.friends {
+#buttons {
+	padding-top: 0.5em;
+	text-align: center;
+}
+.friends {
 	#friends_rides {
 		display: block;
 	}
-	#club_rides, #club-selector {
+	.club_rides,
+	form[name=club-selector] {
 		display: none;
 	}
 }
 
-#tabs.clubs {
-	#friends_rides {
+.clubs {
+	#friends_rides, .club_rides {
 		display: none;
 	}
-	#club_rides {
+	.club_rides.active,
+	form[name=club-selector] {
 		display: block;
 	}
-	#club-selector {
-		display: inline;
-	}
 }
-
 
 
 /*
@@ -108,6 +112,13 @@ h5 {
 }
 #rides li {
 	border-bottom: 1px solid #ccc;
+	margin: 0;
+	padding: 0 1em;
+	line-height: 1.4em;
+
+	&:hover, &.selected {
+		background: lighten($primary-color, 40%);
+	}
 }
 #rides li span {
 	margin-right: 1em;
@@ -116,9 +127,9 @@ h5 {
 	
 }
 .avatar {
-	width: 40px;
-	height: 40px;
-	border-radius: 20px;
+	width: 48px;
+	height: 48px;
+	border-radius: 24px;
 }
 
 
@@ -153,6 +164,9 @@ form[name=map-options] {
 form[name=map-options].open {
 	height: 12em;
 	display: block;
+}
+form {
+	margin-bottom: 0;
 }
 
 
