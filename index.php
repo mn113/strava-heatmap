@@ -9,7 +9,7 @@ $api = new Iamstuartwilson\StravaApi(
 	$clientId,
 	$clientSecret
 );
-$api->setAccessToken($accessToken);
+$api->setAccessToken($accessToken);	// this authenticates app using MY personal account token (!)
 
 // Get me:
 $me = $api->get("athlete");
