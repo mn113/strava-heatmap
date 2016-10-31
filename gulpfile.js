@@ -45,7 +45,8 @@ var myOrderedScripts = [
     'js/3rdparty/polyline.js',
     'js/3rdparty/zepto.min.js',
     'js/3rdparty/zepto.fx.js',
-    'js/3rdparty/zepto.animate.js'
+    'js/3rdparty/zepto.animate.js',
+    'js/3rdparty/zepto.selector.js'
 ];
 // Take javascripts, concatenate them, rename, minify, save:
 gulp.task('scripts', function(callback) {

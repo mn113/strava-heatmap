@@ -1,10 +1,10 @@
-/*global heatmap, renderer, ui, Zepto, $ */
+/*global heatmap, renderer, ui, Zepto, $, L, rides, ajax */
 
-var rides = [];
+var ajax = {};
 
 // Ask php backend to GET the latest rides of a club
-function ajaxGetClubRides(cid) {
-	console.log('ajaxGetClubRides('+ cid +')');
+ajax.getClubRides = function (cid) {
+	console.log('ajax.getClubRides('+ cid +')');
 
 	$.ajax({
 		url: 'apirequests.php',
@@ -18,7 +18,7 @@ function ajaxGetClubRides(cid) {
 		success: function(data) {
 			// Store data in raw form:
 			data.forEach(function(el) {
-				rides.push(el);
+				rides.all.push(el);
 			});
 
 			$(".club-rides").removeClass("active");
@@ -28,18 +28,18 @@ function ajaxGetClubRides(cid) {
 			el.data("clubid", cid);
 			el.html(renderer.printListItems(data));
 			$("#rides").append(el);
-			colourTitles();
+			ui.colourTitles();
 
 			// HTML is done, so scrape it to load rides into a new map layer:
 			heatmap.populateClubLayer(cid);
 		}
 	});
-}
+};
 
 
 // Ask php backend to GET the latest rides of athlete's friends
-function ajaxGetFriendsRides() {
-	console.log('ajaxGetFriendsRides()');
+ajax.getFriendsRides = function() {
+	console.log('ajax.getFriendsRides()');
 
 	$.ajax({
 		url: 'apirequests.php',
@@ -53,23 +53,23 @@ function ajaxGetFriendsRides() {
 		success: function(data) {
 			// Store data in raw form:
 			data.forEach(function(el) {
-				rides.push(el);
+				rides.all.push(el);
 			});
 
 			// Process JSON to HTML and insert into the container <ul>:
 			$(".friends-rides").html(renderer.printListItems(data));
-			colourTitles();
+			ui.colourTitles();
 
 			// HTML is done, so scrape it to load rides into a new map layer:
 			heatmap.populateFriendsLayer();
 		}
 	});
-}
+};
 
 
 // Ask php backend to GET the clubs of the signed-in athlete:
-function ajaxGetClubs() {
-	console.log('ajaxGetClubs()');
+ajax.getClubs = function() {
+	console.log('ajax.getClubs()');
 
 	$.ajax({
 		url: 'apirequests.php',
@@ -90,18 +90,9 @@ function ajaxGetClubs() {
 
 			// Get first club id from HTML and fetch its rides:
 			var cid = $("select[name=clubs] option:first-child").data("cid");
-			ajaxGetClubRides(cid);
+			ajax.getClubRides(cid);
 
 			ui.setClub(cid);
 		}
 	});
-}
-
-
-// Add text colour to the ride titles, generating from the data-rideId:
-function colourTitles() {
-	$("li > h6").each(function(index, el) {
-		var rid = $(el).parent().data("rideid");
-		$(el).css("color", ui.selectColour(rid));
-	});
-}
+};

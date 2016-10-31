@@ -175,7 +175,7 @@ label {
 	float: left;
 	margin: 2.5em 1em 2.5em 0;
 }
-form[name="map-options"] {
+form#map-options {
 	height: 0;
 	display: none;
 	transition: height 1s ease-in-out;
@@ -183,6 +183,10 @@ form[name="map-options"] {
 	&.open {
 		height: 12em;
 		display: block;
+	}
+
+	p {
+		margin: 0;
 	}
 }
 form {

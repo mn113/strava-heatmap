@@ -1,4 +1,4 @@
-/*global heatmap, renderer, ui, Zepto, $, L */
+/*global heatmap, renderer, ui, Zepto, $, L, rides, ajax */
 
 // DOM ready:
 Zepto(function($) {
@@ -6,9 +6,18 @@ Zepto(function($) {
 
 	// Render the polyLines using the data we stored in the HTML <li> data-attributes:
 	if (heatmap.map) {
-		ajaxGetFriendsRides();
-		ajaxGetClubs();
+		ajax.getFriendsRides();
+		ajax.getClubs();
 	}
+
+	// Hide autohide elements after delay:		// DOESN'T WORK
+	$('.autohide').each(function() {
+		var el = $(this);
+		setTimeout(function() {
+			// Slide it left:
+			$(el).animate({"left": "-100%"}, 1500);	// NOT WORKING
+		}, 2000);
+	});
 
 	// Tab-like behaviour for main buttons:
 	$('#friends-btn').click(function() {
@@ -30,7 +39,7 @@ Zepto(function($) {
 		if (matches.length === 0) {
 			// Load it by ajax:
 			console.log('AJAX-fetching activites from club', cid);
-			ajaxGetClubRides(cid);
+			ajax.getClubRides(cid);
 		}
 		else {
 			// It already exists, so set it active:
@@ -50,8 +59,8 @@ Zepto(function($) {
 	});
 
 	// Options form behaviour:
-	$('#options a[name="options"]').click(function() {
-		var form = $('form[name=map-options]');
+	$('#options > a').click(function() {
+		var form = $('#map-options');
 
 		if ($(form).hasClass("open")) {
 			$(form).removeClass("open");
@@ -63,22 +72,28 @@ Zepto(function($) {
 		}
 	});
 
-	// Form checkboxes to perform filtering:
-	$('form[name="map-options"] input[type="checkbox"]').on('change', function() {
-		console.log($(this).val());
+	// Form checkboxes perform filtering:
+	$('#map-options input[type="checkbox"]').on('change', function() {
+		var elName = $(this).attr("name"),
+			elChecked = $(this).prop("checked");
+		//console.log(elName, elChecked);
+
+		// Set properties of rides.filter object:
+		rides.filter[elName] = elChecked;
+		// Perform map filtering:
+		heatmap.filterPaths(rides.applyFilter());
 	});
 
 	// Form text fields to perform filtering
-	$('form[name="map-options"] input[type="text"]').on('keyup', function() {
-		console.log($(this).val());
-	});
+	$('#map-options input[type="text"]').on('keyup', function() {
+		var elName = $(this).attr("name"),
+			elVal = $(this).val();
+		//console.log(elName, elVal);
 
-	// Hide autohide elements after delay:
-	$('.autohide').each(function(index, el) {
-		setTimeout(function(el) {
-			// Slide it left:
-			$(el).animate({"left": "-100%"}, 1000);	// NOT WORKING
-		}, 2000);
+		// Set properties of rides.filter object:
+		rides.filter[elName] = elVal;
+		// Perform map filtering:
+		heatmap.filterPaths(rides.applyFilter());
 	});
 
 });

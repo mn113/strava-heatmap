@@ -1,12 +1,10 @@
-/*global heatmap, renderer, ui, Zepto, $, L */
+/*global heatmap, renderer, ui, Zepto, $, L, rides, ajax */
 var heatmap = {
 
 	map: null,
 	layerGroups: null,		// friends, club1, club2...
 	layerControl: null,
 	paths: {},	//?
-//	rides: {},	//?			// use one of these for toggling data?
-
 
 	init: function() {
 		// Define MapBox basemap ('light'):
@@ -50,7 +48,7 @@ var heatmap = {
 	makeLayerGroup: function(name) {
 		// Make named layer:
 		var newLayerGroup = new L.LayerGroup();
-		console.log("Made", name, newLayerGroup);
+		//console.log("Made", name, newLayerGroup);
 
 		// Add to map:
 		newLayerGroup.addTo(this.map);
@@ -73,7 +71,8 @@ var heatmap = {
 		// Create path:
 		var ridePath = L.polyline(rideCoords, {
 							color: ui.selectColour(data.rideId) || 'red',
-							opacity: '0.8'
+							opacity: '0.8',
+							className: 'rid' + data.rideId	// unique className will allow selection later
 						});
 
 		// Embed Strava activity data in path:
@@ -206,6 +205,34 @@ var heatmap = {
 			// Set path layer visible:
 			heatmap.map.addLayer(newPath);
 		}
+	},
+
+
+	filterPaths: function(filteredList) {
+		console.log("Filtering to", filteredList.length, "paths");
+		// Hide ALL paths momentarily:
+		$('path.leaflet-interactive').hide();
+		// Loop through filtered ride list:
+		filteredList.forEach(function(ride) {
+			//console.info('.rid' + ride.id);
+			// Show paths with matching rideId in their className:
+			$('.rid' + ride.id).show();
+		});
+		//console.log(this.countVisiblePaths());
+	},
+
+
+	filterHTML: function(filteredList) {
+
+
+	},
+
+	// Misleading function because Leaflet only renders as visible, what fits in the viewport...
+	countVisiblePaths: function() {
+		var visibles = $('path').filter(function() {
+				return $(this).is(':visible');
+		});
+		return visibles.length + ' paths shown';
 	}
 };
 
@@ -217,7 +244,7 @@ var ui = {
 
 	getClubs: function() {
 		// Ajax request to API:
-		ajaxGetClubs();
+		ajax.getClubs();
 	},
 
 	setClub: function(cid) {
@@ -239,4 +266,12 @@ var ui = {
 		];
 		return lineColours[rid % 10];	// 0-9
 	},
+
+	// Add text colour to the ride titles, generating from the data-rideId:
+	colourTitles: function() {
+		$("li > h6").each(function(index, el) {
+			var rid = $(el).parent().data("rideid");
+			$(el).css("color", ui.selectColour(rid));
+		});
+	}
 };

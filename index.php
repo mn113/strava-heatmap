@@ -1,7 +1,7 @@
 <?php
 include_once('debugger.inc.php');
 require_once('config.inc.php');
-require_once('strava-master/StravaApi.php');
+require_once('StravaApi.php');
 include_once('functions.inc.php');
 
 // Initialise API caller:
