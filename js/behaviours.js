@@ -40,7 +40,7 @@ Zepto(function($) {
 	});
 
 	// Individual ride click behaviour:
-	$('#rides ul li').on('click', function() {
+	$('#rides ul').on('click', 'li', function(e) {
 		// Highlight path:
 		var rid = $(this).attr("data-rideid");
 		heatmap.highlightPath(rid);
@@ -71,6 +71,14 @@ Zepto(function($) {
 	// Form text fields to perform filtering
 	$('form[name="map-options"] input[type="text"]').on('keyup', function() {
 		console.log($(this).val());
+	});
+
+	// Hide autohide elements after delay:
+	$('.autohide').each(function(index, el) {
+		setTimeout(function(el) {
+			// Slide it left:
+			$(el).animate({"left": "-100%"}, 1000);	// NOT WORKING
+		}, 2000);
 	});
 
 });

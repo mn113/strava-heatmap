@@ -6,19 +6,22 @@ include_once('functions.inc.php');
 
 // Initialise API caller:
 $api = new Iamstuartwilson\StravaApi(
-	$clientId,
-	$clientSecret
+	CLIENT_ID,
+	CLIENT_SECRET
 );
-$api->setAccessToken($accessToken);	// this authenticates app using MY personal account token (!)
+$api->setAccessToken(PERSONAL_ACCESS_TOKEN);	// this authenticates app using MY personal account token (!)
 
 // Get me:
 $me = $api->get("athlete");
 
 // Start HTML:
+include_once('templates/header.inc.php');
+// Auth:
+include_once('templates/auth.inc.php');	// should overwrite MY access token with user's
 ?>
-<?php include('templates/header.inc.php'); ?>
+
 <script>
-	var me = <?= json_encode($me); ?>;
+	var me = <?= json_encode($me); ?>; // unnecessary
 </script>
 
 <section id="main">

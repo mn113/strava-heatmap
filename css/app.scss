@@ -3,6 +3,7 @@
 @import 'skeleton';
 
 $primary-color: #1EAEDB;	// turquoise
+$strava-orange: #FC4C02;
 
 @mixin flexbox($direction, $wrap) {
 	-js-display: flex;
@@ -197,8 +198,42 @@ form {
 	min-width: 200px;
 }
 .leaflet-popup-content-wrapper {
-
+	// TODO
 }
 .leaflet-popup-content {
 	margin: 5px 8px !important;
+}
+
+
+/*
+ * MODAL
+ */
+.modal-bg {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	@include flexbox(row, nowrap);
+	justify-content: center;
+	align-items: center;
+}
+.modal-dialog {
+	padding: 1em;
+	background: white;
+	text-align: center;
+	border-radius: 4px;
+	z-index: 357;
+}
+.strava-ish {
+	background: $strava-orange;
+	color: white;
+}
+.popup-bar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0 0.5em;
+	height: 2em;
+	z-index: 10000000000;
+	text-align: center;
 }

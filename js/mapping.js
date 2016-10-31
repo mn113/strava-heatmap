@@ -110,7 +110,7 @@ var heatmap = {
 	},
 
 
-	getLayerByName: function(name) {
+	getLayerGroupByName: function(name) {
 		for (var i = 0; i < this.layerGroups.length; i++) {
 			var layerGroup = this.layerGroups[i];
 			if (layerGroup.name === name) {
@@ -124,9 +124,9 @@ var heatmap = {
 	highlightPath: function(rideId) {
 		// Zoom map to path's bounds:
 		var bounds = heatmap.paths[rideId].getBounds();
-		heatmap.map.flyToBounds(bounds, {padding: [20,20]});
+		heatmap.map.fitBounds(bounds, {padding: [20,20]});	// flyToBounds() is too slow and doesn't render paths
 
-		// Give flyToBounds 2 seconds to complete:
+/*		// Give flyToBounds 2 seconds to complete:
 		setTimeout(function() {
 
 			// Create yellow bounding box:
@@ -141,7 +141,7 @@ var heatmap = {
 					flasher.remove();
 				});
 			}, 1000);
-		}, 2000);
+		}, 2000);*/
 	},
 
 
@@ -161,27 +161,10 @@ var heatmap = {
 
 
 	populateFriendsLayer: function() {
-		$(".friends_rides li").each(function(index, el) {
+		// Scrape HTML:
+		$(".friends-rides li").each(function(index, el) {
 			var ride = $(el);
-			// Extract data-attributes from <li>:
-			var data = {
-				'rideId': ride.data('rideid'),
-				'title': ride.data('title'),
-				'date': ride.data('date'),
-				'time': ride.data('time'),
-				'type': ride.data('type'),
-				'dist': ride.data('dist'),
-				'elev': ride.data('elev'),
-				'athlete': ride.data('athlete'),
-				'avatar': ride.data('avatar'),
-				'path': ride.data('summary')
-			};
-			// Add path to the Friends layer:
-			var newPath = heatmap.createPath(data);
-			heatmap.addPathToLayerGroup(newPath, 'Friends');
-
-			// Set layer visible:
-//			heatmap.map.addLayer(heatmap.getLayerByName('Friends'));
+			heatmap.populateLayer(ride, "Friends");
 		});
 	},
 
@@ -189,35 +172,40 @@ var heatmap = {
 	populateClubLayer: function(cid) {		// BETTER IF IT WORKED WITH data
 		// Create new layer for this club:
 		var clubname = this.getClubNameById(cid);
-		console.log("Making map layer:", clubname);
 		heatmap.makeLayerGroup(clubname);
-		console.log(heatmap.map.hasLayer(clubname));	// false -> need to use layer id?
+		console.log("Made map layerGroup:", clubname);
 
-		// Set layer visible:
-//		heatmap.map.addLayer(heatmap.layerGroups[clubname]);	// ERROR
-
+		// Scrape HTML:
 		$(".club-rides[data-clubid='"+ cid +"'] li").each(function(index, el) {
 			var ride = $(el);
-			// Extract data-attributes from <li>:
-			var data = {
-				'rideId': ride.data('rideid'),
-				'title': ride.data('title'),
-				'date': ride.data('date'),
-				'time': ride.data('time'),
-				'type': ride.data('type'),
-				'dist': ride.data('dist'),
-				'elev': ride.data('elev'),
-				'athlete': ride.data('athlete'),
-				'avatar': ride.data('avatar'),
-				'path': ride.data('summary')
-			};
+			heatmap.populateLayer(ride, clubname);
+		});
+	},
 
+
+	populateLayer: function(ride, layerName) {
+		// Extract data-attributes from <li>:
+		var data = {
+			'rideId': ride.data('rideid'),
+			'title': ride.data('title'),
+			'date': ride.data('date'),
+			'time': ride.data('time'),
+			'type': ride.data('type'),
+			'dist': ride.data('dist'),
+			'elev': ride.data('elev'),
+			'athlete': ride.data('athlete'),
+			'avatar': ride.data('avatar'),
+			'path': ride.data('summary')
+		};
+
+		if (data.path) {
 			// Make path from the data:
 			var newPath = heatmap.createPath(data);
-
 			// Add path to the new layer:
-			heatmap.addPathToLayerGroup(newPath, 'Club'+cid);
-		});
+			heatmap.addPathToLayerGroup(newPath, layerName);
+			// Set path layer visible:
+			heatmap.map.addLayer(newPath);
+		}
 	}
 };
 

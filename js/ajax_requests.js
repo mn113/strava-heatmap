@@ -86,7 +86,7 @@ function ajaxGetClubs() {
 
 			// Append to html:
 			$('select[name="clubs"]').html(renderer.printClubs(data));
-			console.log(data);
+//			console.log(data);
 
 			// Get first club id from HTML and fetch its rides:
 			var cid = $("select[name=clubs] option:first-child").data("cid");

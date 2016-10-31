@@ -27,9 +27,12 @@ renderer.printListItems = function(rides) {
 	var html = '';
     for (var i = 0; i < rides.length; i++) {
         var ride = rides[i];
-        html += `<li ${renderer.printRideDataAttributes(ride, ride.athlete)}>
-		         ${renderer.printRideDetails(ride, ride.athlete)}
-		         </li>`;
+		// It must have a polyline to be included:
+		if (ride.map.summary_polyline) {
+			html += `<li ${renderer.printRideDataAttributes(ride, ride.athlete)}>
+			         ${renderer.printRideDetails(ride, ride.athlete)}
+			         </li>`;
+		}
     }
 	return html;
 };
