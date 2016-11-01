@@ -11,18 +11,17 @@ $api = new Iamstuartwilson\StravaApi(
 );
 $api->setAccessToken(PERSONAL_ACCESS_TOKEN);	// this authenticates app using MY personal account token (!)
 
-// Get me:
-$me = $api->get("athlete");
-
 // Start HTML:
 include_once('templates/header.inc.php');
 // Auth:
-include_once('templates/auth.inc.php');	// should overwrite MY access token with user's
-?>
+include_once('templates/auth.inc.php');		// should overwrite MY access token with user's
+// $mode is now set
 
-<script>
-	var me = <?= json_encode($me); ?>; // unnecessary
-</script>
+// Get current user:
+$user = $api->get("athlete");
+
+echo '<script>var user = '. json_encode($user) .', mode = "'. $mode .'";</script>';
+?>
 
 <section id="main">
 	<div id="map"></div>

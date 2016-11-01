@@ -9,7 +9,12 @@ renderer.formatDate = function(utcDate) {
 
 renderer.formatTime = function(utcDate) {
 	var d = new Date(utcDate);
-	return d.getHours() + ':' + d.getMinutes();
+	var hours = d.getHours(),
+		minutes = d.getMinutes();
+	// Zero-fill:
+	if (hours < 10) { hours = '0' + hours; }
+	if (minutes < 10) { minutes = '0' + minutes; }
+	return hours + ':' + minutes;
 };
 
 // Improve Stravas distance formatting:
@@ -64,7 +69,7 @@ renderer.printRideDetails = function(ride, ath) {
 
 // Return html with some athlete data:
 renderer.printAthlete = function(ath) {
-	var html = `<img class="avatar" src="${ath.profile}"
+	var html = `<img class="avatar" src="${ath.profile}">
             	<span class="athlete">${ath.firstname} ${ath.lastname}</span>
             	<span class="city">(${ath.city})</span>`;
 	return html;

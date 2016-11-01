@@ -29,9 +29,15 @@ ajax.getClubRides = function (cid) {
 			el.html(renderer.printListItems(data));
 			$("#rides").append(el);
 			ui.colourTitles();
+			// Attach event listener for li clicks:
+			ui.attachLiClickListeners();
 
 			// HTML is done, so scrape it to load rides into a new map layer:
 			heatmap.populateClubLayer(cid);
+
+			// Filter displayed data:
+			heatmap.filterPaths(rides.applyFilter());
+			ui.filterHTML(rides.applyFilter());
 		}
 	});
 };
@@ -59,9 +65,15 @@ ajax.getFriendsRides = function() {
 			// Process JSON to HTML and insert into the container <ul>:
 			$(".friends-rides").html(renderer.printListItems(data));
 			ui.colourTitles();
+			// Attach event listener for li clicks:
+			ui.attachLiClickListeners();
 
 			// HTML is done, so scrape it to load rides into a new map layer:
 			heatmap.populateFriendsLayer();
+
+			// Filter displayed data:
+			heatmap.filterPaths(rides.applyFilter());
+			ui.filterHTML(rides.applyFilter());
 		}
 	});
 };
@@ -86,13 +98,25 @@ ajax.getClubs = function() {
 
 			// Append to html:
 			$('select[name="clubs"]').html(renderer.printClubs(data));
-//			console.log(data);
+			//console.log(data);
 
 			// Get first club id from HTML and fetch its rides:
 			var cid = $("select[name=clubs] option:first-child").data("cid");
 			ajax.getClubRides(cid);
 
 			ui.setClub(cid);
+		}
+	});
+};
+
+
+ajax.geoLookup = function(city, country) {
+	var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + ',' + country;
+	$.getJSON(url, function(data) {
+		if (data.status === 'OK') {
+//			console.log(data.results[0].geometry.location);
+//			return data.results[0].geometry.location;
+			heatmap.zoomMap(data.results[0].geometry.location, 9);
 		}
 	});
 };

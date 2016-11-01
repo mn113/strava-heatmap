@@ -1,4 +1,4 @@
-/*global heatmap, renderer, ui, Zepto, $, L, rides, ajax */
+/*global heatmap, renderer, ui, Zepto, $, L, rides, ajax, user */
 
 var rides = {
     all: [],    // Main ride store for the whole app
@@ -9,7 +9,6 @@ var rides = {
         includeRuns: false,
         includeOthers: false,
         dateRange: 7,  // days
-        geoRange: 100,
         minDistance: 2,
         maxDistance: 200
     },
@@ -35,9 +34,9 @@ var rides = {
         // Do filtering:
         var filtered = collection.filter(function(ride) {
             // Athlete id filtering only needed if excluding self:
-            return (!rides.filter.excludeSelf || ride.athlete.id !== me.id);
+            return (!rides.filter.excludeSelf || ride.athlete.id !== user.id);
         });
-        console.log(filtered.length, 'matches on self');
+        //console.log(filtered.length, 'matches on self');
         return filtered;
     },
 
@@ -51,7 +50,7 @@ var rides = {
                 (ride.type !== 'Ride' && ride.type !== 'Run' && types.indexOf('others') !== -1)
             );
         });
-        console.log(filtered.length, 'matches by type');
+        //console.log(filtered.length, 'matches by type');
         return filtered;
     },
 
@@ -65,7 +64,7 @@ var rides = {
             var activityTime = new Date(ride.start_date_local).getTime();
             return (activityTime > beginTime);
         });
-        console.log(filtered.length, 'matches by date');
+        //console.log(filtered.length, 'matches by date');
         return filtered;
     },
 
@@ -76,17 +75,7 @@ var rides = {
             return (ride.distance / 1000 > rides.filter.minDistance) &&
                     (ride.distance / 1000 < rides.filter.maxDistance);
         });
-        console.log(filtered.length, 'matches by distance');
+        //console.log(filtered.length, 'matches by distance');
         return filtered;
     }
-    /*
-    function filterByGeoRange(radius = 100, origin = [51.5,0]) {	// NO IDEA
-        // Do filtering:
-        filtered = [];
-        foreach (this.data as activity) {
-
-        }
-        return filtered;
-    }
-    */
 };

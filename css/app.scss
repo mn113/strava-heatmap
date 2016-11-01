@@ -5,6 +5,8 @@
 $primary-color: #1EAEDB;	// turquoise
 $strava-orange: #FC4C02;
 
+$appfont: 'Droid Sans', sans-serif;
+
 @mixin flexbox($direction, $wrap) {
 	-js-display: flex;
 	/* for polyfill */
@@ -22,6 +24,8 @@ html, body {
 }
 body {
 	@include flexbox(row, wrap)
+	font-family: $appfont;
+	font-weight: 400;
 }
 #main {
 	width: 65%;
@@ -40,6 +44,7 @@ body {
 	height: 400px;
 	flex-basis: 400px;
 	border-bottom: 1px solid #999;
+	z-index: 0;
 }
 #options {
 	padding: 0.6em;
@@ -96,7 +101,7 @@ h5 {	/* ACTIVITIES text bar */
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
 	font-size: 1.2rem;
-	font-weight: bold;
+	font-weight: 700;
 	background: #999;
 	color: white;
 	margin-bottom: 0;
@@ -109,6 +114,7 @@ h5 {	/* ACTIVITIES text bar */
 	border-bottom: 1px solid #ccc;
 	margin: 0;
 	padding: 0.3em 1em;
+	font-size: 1.2rem;
 	line-height: 1.4em;
 
 	&:hover, &.selected {
@@ -121,11 +127,11 @@ h5 {	/* ACTIVITIES text bar */
  * ACTIVITY / ATHLETE STYLES
  */
 h6 {
-	font-weight: bold;
+	font-weight: 700;
 	margin-bottom: 0;
 }
 .athlete {
-	font-weight: bold;
+	font-weight: 700;
 }
 .avatar {
 	width: 48px;
@@ -158,7 +164,7 @@ h6 {
  * FORM ELEMENTS
  */
 a[name="options"] {
-	font-weight: bold;
+	font-weight: 700;
 
 	&:hover {
 		cursor: pointer;
@@ -205,7 +211,8 @@ form {
 	// TODO
 }
 .leaflet-popup-content {
-	margin: 5px 8px !important;
+	margin: 6px 8px !important;
+	font-family: $appfont;
 }
 
 
@@ -220,13 +227,14 @@ form {
 	@include flexbox(row, nowrap);
 	justify-content: center;
 	align-items: center;
+	z-index: 1;
 }
 .modal-dialog {
 	padding: 1em;
 	background: white;
 	text-align: center;
 	border-radius: 4px;
-	z-index: 357;
+	z-index: 2;
 }
 .strava-ish {
 	background: $strava-orange;
@@ -238,6 +246,6 @@ form {
 	left: 0;
 	padding: 0 0.5em;
 	height: 2em;
-	z-index: 10000000000;
+	z-index: 2;
 	text-align: center;
 }

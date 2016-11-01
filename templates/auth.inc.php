@@ -1,9 +1,12 @@
 <?php
 // Check if user is already authorised:
 if (isset($_COOKIE['access_token'])) {
+    echo '<script>console.log("cookie present");</script>';
     // Nothing to output here, return to parent page:
     $user_access_token = $_COOKIE['user_access_token'];
-    die();
+    $api->setAccessToken($user_access_token);
+    $mode = 'logged';
+    return;
 }
 
 // First step of OAuth: make the user click through to https://www.strava.com/oauth/authorize
@@ -15,9 +18,10 @@ if (!isset($_GET['code'])) {
     echo '<div class="modal-dialog">';
     echo '<p>To use this app, you need to log in to Strava.</p>';
     echo '<a href="' .$url .'" target="_blank"><button class="strava-ish">Authorise this app</button></a>';
-    echo '<p><a onclick="$(".modal-dialog").hide();">Close</a></p>';
+    echo '<p><a href="#">Close</a></p>';
     echo '</div></div>';
-    die();
+    // Need to let non-Strava users use the app in demo mode:
+    $mode = 'demo';
 }
 
 // Second step of OAuth: token exchange
@@ -33,4 +37,6 @@ else {
     echo '<div class="popup-bar strava-ish autohide">';
     echo 'Connected to Strava as '. $result->athlete->firstname;
     echo '</div>';
+
+    $mode = 'logged';
 }

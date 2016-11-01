@@ -4,13 +4,15 @@ require_once('config.inc.php');
 require_once('StravaApi.php');
 include_once('functions.inc.php');
 
-// Receive access token from requester:
-$access_token = $_COOKIE['user_access_token'];
-if(!isset($access_token)|| empty($access_token)) {
+if(isset($_COOKIE['user_access_token']) && !empty($_COOKIE['user_access_token'])) {
+	// Receive access token from requester:
+	$access_token = $_COOKIE['user_access_token'];
+	$mode = 'logged';
+}
+else {
 	// If no cookie, fall back to MY token:
-	// Need to create a setting for this
 	$access_token = PERSONAL_ACCESS_TOKEN;
-//	die("No API access allowed.");
+	$mode = 'demo';
 }
 
 // Initialise API caller:
@@ -19,6 +21,9 @@ $api = new Iamstuartwilson\StravaApi(
 	CLIENT_SECRET
 );
 $api->setAccessToken($access_token);
+
+// Get current user:
+$user = $api->get("athlete");
 
 // Sanitise incoming GET request:
 $resource = trim($_GET['resource']);
@@ -54,7 +59,7 @@ function get_athlete_clubs($ath_id = null) {
 	global $api;
 
 	if (!$ath_id) {
-		return [10360];	// road.cc
+		return [116475];	// Encourage Someone club
 	}
 	else {
 		$club_list = $api->get("athlete/clubs");
@@ -69,8 +74,11 @@ function get_athlete_clubs($ath_id = null) {
 // API-calling function block:
 function get_club_activities($club_id) {
 	global $api;
+	global $mode;
 
-	$club_rides = $api->get("clubs/".$club_id."/activities", ['per_page' => 30, 'page' => 1]);
+	$number = ($mode == 'demo') ? 100 : 30;
+
+	$club_rides = $api->get("clubs/".$club_id."/activities", ['per_page' => $number, 'page' => 1]);
 
 	if (is_array($club_rides)) {
 		return $club_rides;

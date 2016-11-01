@@ -1,10 +1,11 @@
-/*global heatmap, renderer, ui, Zepto, $, L, rides, ajax */
+/*global heatmap, renderer, ui, Zepto, $, L, rides, ajax, mode, user */
 var heatmap = {
 
 	map: null,
 	layerGroups: null,		// friends, club1, club2...
 	layerControl: null,
 	paths: {},	//?
+	topLayerIndex: 1000,
 
 	init: function() {
 		// Define MapBox basemap ('light'):
@@ -22,14 +23,18 @@ var heatmap = {
 				id: 'lightBase'
 		});
 
-		var bristol = [51.400, -2.600];
+		var bristol = [51.400, -2.600],
+			europe = [48,10],
+			world = [35,0];
 
 		// Initialise map:
 		this.map = L.map('map', {
-			center: bristol,
-			zoom: 9,
+			center: world,
+			zoom: 1,
 			layers: [lightBase]
 		});
+
+		this.locateUser();
 
 		this.initLayers();
 	},
@@ -45,6 +50,22 @@ var heatmap = {
 	},
 
 
+	// Use Ajax to Geo-lookup user's hometown:
+	locateUser: function() {
+		if (mode && mode === 'logged') {
+			if (user.city) {
+				ajax.geoLookup(user.city, user.country);
+			}
+		}
+	},
+
+
+	// Zoom map to user:
+	zoomMap(center, zoom) {
+		heatmap.map.setView(center, zoom);
+	},
+
+
 	makeLayerGroup: function(name) {
 		// Make named layer:
 		var newLayerGroup = new L.LayerGroup();
@@ -55,7 +76,7 @@ var heatmap = {
 
 		// Add map control for this layer:
 		this.layerControl.addOverlay(newLayerGroup, name);
-		this.layerControl.expand();
+		//this.layerControl.expand();
 
 		// Store it:
 		this.layerGroups[name] = newLayerGroup;
@@ -80,15 +101,7 @@ var heatmap = {
 		ridePath.data = data;
 
 		// Prepare its tooltip:
-		ridePath.tooltipContent = `
-			<h6 id="${data.rideId}" style="color:${data.color}">
-				${data.title}</h6>
-			<img class='avatar' src='${data.avatar}'>
-			<span class='date'>${data.date}&nbsp;${data.time}</span>
-			<div class='athlete'>${data.athlete}</div>
-			<span>${data.dist}&nbsp;${data.elev}</span>
-			<span class="icon ${data.type}">
-		`;
+		ridePath.tooltipContent = this.preparePathTooltip(data);
 
 		// Make path clickable:
 		ridePath.on('click', function(e) {
@@ -101,6 +114,21 @@ var heatmap = {
 		heatmap.paths[data.rideId] = ridePath;
 
 		return ridePath;
+	},
+
+
+	preparePathTooltip(data) {
+		return `
+			<h6 id="${data.rideId}" style="color:${data.color}">
+				<span class="icon ${data.type.toLowerCase()}"></span>
+				${data.title}
+			</h6>
+			<img class='avatar' src='${data.avatar}'>
+			<span class='date'>${data.date}&nbsp;${data.time}</span>
+			<div class='athlete'>${data.athlete}</div>
+			<span>${data.dist}</span>
+			<span>${data.elev}</span>
+		`;
 	},
 
 
@@ -125,22 +153,8 @@ var heatmap = {
 		var bounds = heatmap.paths[rideId].getBounds();
 		heatmap.map.fitBounds(bounds, {padding: [20,20]});	// flyToBounds() is too slow and doesn't render paths
 
-/*		// Give flyToBounds 2 seconds to complete:
-		setTimeout(function() {
-
-			// Create yellow bounding box:
-			var flasher = L.rectangle(bounds, {weight: 1, color: "#333399",
-											   fill: true, fillColor: "#0000ff", fillOpacity: "0.4",
-											   className: "auto_hide"});
-			flasher.addTo(this.map);
-
-			// Fade, then remove:
-			setTimeout(function(){
-				$(".auto_hide").animate({opacity: 0}, 700, function() {
-					flasher.remove();
-				});
-			}, 1000);
-		}, 2000);*/
+		// Bring to front using z-index: layer.bringToFront():
+		heatmap.paths[rideId].bringToFront();
 	},
 
 
@@ -218,14 +232,8 @@ var heatmap = {
 			// Show paths with matching rideId in their className:
 			$('.rid' + ride.id).show();
 		});
-		//console.log(this.countVisiblePaths());
 	},
 
-
-	filterHTML: function(filteredList) {
-
-
-	},
 
 	// Misleading function because Leaflet only renders as visible, what fits in the viewport...
 	countVisiblePaths: function() {
@@ -251,6 +259,7 @@ var ui = {
 		this.activeClub = cid;
 	},
 
+	// Generate the path/title colour based on the rideId:
 	selectColour: function(rid) {
 		var lineColours = [
 			'#f44336',
@@ -267,11 +276,47 @@ var ui = {
 		return lineColours[rid % 10];	// 0-9
 	},
 
-	// Add text colour to the ride titles, generating from the data-rideId:
+	// Add text colour to the ride titles:
 	colourTitles: function() {
 		$("li > h6").each(function(index, el) {
 			var rid = $(el).parent().data("rideid");
 			$(el).css("color", ui.selectColour(rid));
+		});
+	},
+
+	// Filter down the HTML lists according to filters:
+	filterHTML: function(filteredList) {
+		// Hide ALL <li>s momentarily:
+		$('li').hide();
+		filteredList.forEach(function(ride) {
+			// Show <li> items with matching rideId in their data attributes:
+			$('li[data-rideId="'+ ride.id +'"]').show();
+		});
+	},
+
+	// Set which of the 2 main tabs is active:
+	setActiveTab(tab) {
+		if (tab === 'friends') {
+			$("#sidebar").removeClass('clubs').addClass('friends');
+			$('#clubs-btn').removeClass('button-primary');
+			$('#friends-btn').addClass('button-primary');
+		}
+		else if (tab === 'clubs') {
+			$("#sidebar").removeClass('friends').addClass('clubs');
+			$('#friends-btn').removeClass('button-primary');
+			$('#clubs-btn').addClass('button-primary');
+		}
+	},
+
+	attachLiClickListeners() {
+		// Individual ride click behaviour:
+		$('#rides ul').on('click', 'li', function(e) {
+			// Highlight path:
+			var rid = $(this).attr("data-rideid");
+			heatmap.highlightPath(rid);
+			// Unset & set selected:
+			$(".selected").removeClass("selected");
+			$(this).addClass("selected");
 		});
 	}
 };

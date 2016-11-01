@@ -1,4 +1,4 @@
-/*global heatmap, renderer, ui, Zepto, $, L, rides, ajax */
+/*global heatmap, renderer, ui, Zepto, $, L, rides, ajax, mode */
 
 // DOM ready:
 Zepto(function($) {
@@ -6,8 +6,11 @@ Zepto(function($) {
 
 	// Render the polyLines using the data we stored in the HTML <li> data-attributes:
 	if (heatmap.map) {
-		ajax.getFriendsRides();
+		if (mode === 'logged') { ajax.getFriendsRides(); }
 		ajax.getClubs();
+	}
+	if (mode === 'demo') {
+		ui.setActiveTab('clubs');
 	}
 
 	// Hide autohide elements after delay:		// DOESN'T WORK
@@ -21,19 +24,15 @@ Zepto(function($) {
 
 	// Tab-like behaviour for main buttons:
 	$('#friends-btn').click(function() {
-		$("#sidebar").removeClass('clubs').addClass('friends');
-		$('#clubs-btn').removeClass('button-primary');
-		$(this).addClass('button-primary');
+		ui.setActiveTab('friends');
 	});
 	$('#clubs-btn').click(function() {
-		$("#sidebar").removeClass('friends').addClass('clubs');
-		$('#friends-btn').removeClass('button-primary');
-		$(this).addClass('button-primary');
+		ui.setActiveTab('clubs');
 	});
 
 	// Club selector AJAX behaviour:
 	$('select[name="clubs"]').on('change', function() {
-		var cid = $(this).find("option:checked").data("cid");
+		var cid = $(this).find("option:selected").data("cid");
 		// Check whether <ul> with data-clubid exists:
 		var matches = $('.club-rides[data-clubid="' + cid + '"]');
 		if (matches.length === 0) {
@@ -46,16 +45,6 @@ Zepto(function($) {
 			$(".club-rides").removeClass("active");
 			$(matches).addClass("active");
 		}
-	});
-
-	// Individual ride click behaviour:
-	$('#rides ul').on('click', 'li', function(e) {
-		// Highlight path:
-		var rid = $(this).attr("data-rideid");
-		heatmap.highlightPath(rid);
-		// Unset & set selected:
-		$(".selected").removeClass("selected");
-		$(this).addClass("selected");
 	});
 
 	// Options form behaviour:
@@ -82,6 +71,7 @@ Zepto(function($) {
 		rides.filter[elName] = elChecked;
 		// Perform map filtering:
 		heatmap.filterPaths(rides.applyFilter());
+		ui.filterHTML(rides.applyFilter());
 	});
 
 	// Form text fields to perform filtering
@@ -94,6 +84,12 @@ Zepto(function($) {
 		rides.filter[elName] = elVal;
 		// Perform map filtering:
 		heatmap.filterPaths(rides.applyFilter());
+		ui.filterHTML(rides.applyFilter());
+	});
+
+	// Close modal on link click:
+ 	$('.modal-dialog a').click(function() {
+		$('.modal-bg').hide();
 	});
 
 });

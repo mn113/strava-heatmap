@@ -11,7 +11,8 @@
 	<link rel="stylesheet" href="css/app.css">
 	<!-- endinject -->
 	<link href="favicon.ico" rel="icon" type="image/x-icon">
-	<link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+	<!--link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet"-->
 	<link href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" rel="stylesheet" />
 
 	<!-- inject:js -->
