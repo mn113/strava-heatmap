@@ -13,6 +13,7 @@
 <h5>Activities</h5>
 
 <div id="rides">
+	<a class="reload"></a>
 	<ul class="friends-rides"><!-- Ajax-filled --></ul>
 	<ul class="club-rides" data-clubid=""><!-- Ajax-filled --></ul>
 	<!-- more ul.club-rides to be loaded here -->

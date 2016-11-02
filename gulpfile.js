@@ -5,7 +5,8 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     cssnano = require('gulp-cssnano'),
     // JS-specific:
-    uglify = require('gulp-uglify'),
+    uglify = require('uglify-js'),  // Harmony branch for ES6 support
+    minifier = require('gulp-uglify/minifier'),
     concat = require('gulp-concat'),
     pump = require('pump'),
     // IMG-specific:
@@ -21,8 +22,7 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     livereload = require('gulp-livereload'),
     del = require('del');
-
-var outputDir = './dist';
+var outputDir = '.';
 
 // Pre-process CSS, autoprefix them, rename, minify, save:
 gulp.task('styles', function() {
@@ -41,7 +41,7 @@ gulp.task('styles', function() {
 });
 
 
-var myOrderedScripts = [
+var my3rdPartyOrderedScripts = [
     'js/3rdparty/polyline.js',
     'js/3rdparty/zepto.min.js',
     'js/3rdparty/zepto.fx.js',
@@ -49,35 +49,63 @@ var myOrderedScripts = [
     'js/3rdparty/zepto.selector.js'
 ];
 // Take javascripts, concatenate them, rename, minify, save:
-gulp.task('scripts', function(callback) {
-    //return pump([                       // produces nicer errors
-        return gulp.src(myOrderedScripts)
-        .pipe(concat('main.js'))
-        .pipe(gulp.dest(outputDir + '/js'))
-        .pipe(size())
-        .pipe(uglify({mangle: false})).on('error', gutil.log)
-        .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest(outputDir + '/js'))
-        .pipe(size())
-        .pipe(notify({ message: 'Scripts task complete' }));
-    //], callback);
+gulp.task('scripts1', function(callback) {
+    var options = {
+        preserveComments: 'license'
+    };
+    return pump([                       // produces nicer errors
+        gulp.src(my3rdPartyOrderedScripts),
+        concat('3rdparty.js'),
+        gulp.dest(outputDir + '/js'),
+        size(),
+        minifier(options, uglify),      // can handle ES6
+        rename({suffix: '.min'}),
+        gulp.dest(outputDir + '/js'),
+        size(),
+        notify({ message: 'Scripts1 task complete' })
+    ], callback);
+});
+
+var myOrderedScripts = [
+    'js/ajax_requests.js',
+    'js/renderer.js',
+    'js/mapping.js',
+    'js/behaviours.js',
+    'js/filters.js'
+];
+// Take javascripts, concatenate them, rename, minify, save:
+gulp.task('scripts2', function(callback) {
+    var options = {
+        preserveComments: 'license'
+    };
+    return pump([                       // produces nicer errors
+        gulp.src(myOrderedScripts),
+        concat('app.js'),
+        gulp.dest(outputDir + '/js'),
+        size(),
+        minifier(options, uglify),      // can handle ES6
+        rename({suffix: '.min'}),
+        gulp.dest(outputDir + '/js'),
+        size(),
+        notify({ message: 'Scripts2 task complete' })
+    ], callback);
 });
 
 
 // Compress images and cache them:
 gulp.task('images', function() {
-    return gulp.src(['img/*.png', 'img/*.jpg'])
+    return gulp.src(['img/*.png', 'img/*.jpg', 'img/*.svg'])
     .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
     .pipe(gulp.dest(outputDir + '/img'))
     .pipe(size())
     .pipe(notify({ message: 'Images task complete' }));
 });
 
-
+/*
 // Inject Gulped css & js into main html file:
-gulp.task('inject', function () {
+gulp.task('inject1', function () {
     var sources = gulp.src([
-        outputDir + '/js/main.min.js',
+        outputDir + '/js/3rdparty.min.js',
         outputDir + '/css/app.min.css'
     ], {read: false});
 
@@ -86,44 +114,28 @@ gulp.task('inject', function () {
     .pipe(gulp.dest('templates/'))
     .pipe(size());
 });
+// Inject Gulped css & js into main html file:
+gulp.task('inject2', function () {
+    var sources = gulp.src([
+        outputDir + '/js/app.min.js'
+    ], {read: false});
 
-
-// Clean distribution build:
-gulp.task('clean', function() {
-    return del([
-        '**/.DS_Store',
-        'dist/assets/css',
-        'dist/assets/js',
-        'dist/assets/img'
-    ]);
+    return gulp.src('templates/footer.inc.php')
+    .pipe(inject(sources, {relative: true, ignorePath: 'dist/'}))
+    .pipe(gulp.dest('templates/'))
+    .pipe(size());
 });
-
+*/
 
 // Watch files for changes:
 gulp.task('watch', function() {
     // Watch .scss files
     gulp.watch('css/app.scss', ['styles']);
     // Watch .js files
-//    gulp.watch('js/app.src.js', ['scripts']);
-    // Watch image files
-//    gulp.watch('img/*', ['images']);
-    // Watch html files
-//    gulp.watch('taskapp.html', ['html']);
+    gulp.watch('js/*.js', ['scripts2']);
 
     // Create LiveReload server
     livereload.listen();
     // Watch any files in dist/, reload on change
     gulp.watch(['dist/**']).on('change', livereload.changed);
-});
-
-
-// Run 'clean' first, then run 'styles'/'scripts'/'images' concurrently:
-gulp.task('assets', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images');
-});
-
-
-// Build all assets then inject into html:
-gulp.task('default', ['assets'], function() {
-    gulp.start('inject');
 });

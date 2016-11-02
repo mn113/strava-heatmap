@@ -5,13 +5,14 @@ var ajax = {};
 // Ask php backend to GET the latest rides of a club
 ajax.getClubRides = function (cid) {
 	console.log('ajax.getClubRides('+ cid +')');
+	$(".reload").hide().off('click');
 
 	$.ajax({
 		url: 'apirequests.php',
 		// data to be added to query string:
 		data: {
 			resource: 'club_activities',
-			id: null // cid
+			id: cid
 		},
 		dataType: 'json',
 		timeout: 3000,
@@ -42,11 +43,9 @@ ajax.getClubRides = function (cid) {
 		error: function() {
 			console.log("Failed to load club rides for", cid);
 			// Create "try again" button:
-			var el = $('<a class="reload"></a>');
-			$(el).click(function() {
+			$(".reload").on('click', function() {
 				ajax.getClubRides(cid);
-			});
-			$("#rides").append(el);
+			}).show();
 		}
 	});
 };
@@ -55,13 +54,13 @@ ajax.getClubRides = function (cid) {
 // Ask php backend to GET the latest rides of athlete's friends
 ajax.getFriendsRides = function() {
 	console.log('ajax.getFriendsRides()');
+	$(".reload").hide().off('click');
 
 	$.ajax({
 		url: 'apirequests.php',
 		// data to be added to query string:
 		data: {
-			resource: 'friend_activities',
-			id: 1
+			resource: 'friend_activities'
 		},
 		dataType: 'json',
 		timeout: 3000,
@@ -83,6 +82,13 @@ ajax.getFriendsRides = function() {
 			// Filter displayed data:
 			heatmap.filterPaths(rides.applyFilter());
 			ui.filterHTML(rides.applyFilter());
+		},
+		error: function() {
+			console.log("Failed to load friend rides");
+			// Show "try again" button, attaching new click listener:
+			$(".reload").on('click', function() {
+				ajax.getFriendsRides();
+			}).show();
 		}
 	});
 };
@@ -96,8 +102,7 @@ ajax.getClubs = function() {
 		url: 'apirequests.php',
 		// data to be added to query string:
 		data: {
-			resource: 'clubs',
-			id: 1
+			resource: 'clubs'
 		},
 		dataType: 'json',
 		timeout: 3000,

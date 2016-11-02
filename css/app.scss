@@ -55,6 +55,7 @@ body {
 	height:	auto;
 	overflow: scroll;
 	background: white;
+	position: relative;
 }
 footer {
 	background: #666;
@@ -138,6 +139,7 @@ h5 {	/* ACTIVITIES text bar */
 #rides li {
 	position: relative;
 	border-bottom: 1px solid #ccc;
+	background: white;
 	margin: 0;
 	padding: 0.3em 0.6em;
 	font-size: 1.2rem;
@@ -155,6 +157,13 @@ h5 {	/* ACTIVITIES text bar */
 	top: 10px;
 	left: 50%;
 	margin-left: -12px;
+	display: none;
+
+	&:hover {
+		transform: rotate(180deg);
+		transition: transform 1s;
+		cursor: pointer;
+	}
 }
 
 

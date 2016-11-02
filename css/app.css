@@ -1,0 +1,1315 @@
+@charset "UTF-8";
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+/* line 9, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/**
+ * Remove default margin.
+ */
+/* line 19, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+body {
+  margin: 0; }
+
+/* HTML5 display definitions
+   ========================================================================== */
+/**
+ * Correct `block` display not defined for any HTML5 element in IE 8/9.
+ * Correct `block` display not defined for `details` or `summary` in IE 10/11
+ * and Firefox.
+ * Correct `block` display not defined for `main` in IE 11.
+ */
+/* line 33, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block; }
+
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+/* line 54, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */ }
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+/* line 67, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Address `[hidden]` styling not present in IE 8/9/10.
+ * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.
+ */
+/* line 77, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+[hidden],
+template {
+  display: none; }
+
+/* Links
+   ========================================================================== */
+/**
+ * Remove the gray background color from active links in IE 10.
+ */
+/* line 89, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+a {
+  background-color: transparent; }
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+/* line 97, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+a:active,
+a:hover {
+  outline: 0; }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
+ */
+/* line 109, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+ */
+/* line 117, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+b,
+strong {
+  font-weight: bold; }
+
+/**
+ * Address styling not present in Safari and Chrome.
+ */
+/* line 126, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+dfn {
+  font-style: italic; }
+
+/**
+ * Address variable `h1` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari, and Chrome.
+ */
+/* line 135, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/**
+ * Address styling not present in IE 8/9.
+ */
+/* line 144, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+mark {
+  background: #ff0;
+  color: #000; }
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+/* line 153, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+/* line 161, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+/* line 169, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+sup {
+  top: -0.5em; }
+
+/* line 173, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+sub {
+  bottom: -0.25em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove border when inside `a` element in IE 8/9/10.
+ */
+/* line 184, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+img {
+  border: 0; }
+
+/**
+ * Correct overflow not hidden in IE 9/10/11.
+ */
+/* line 192, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * Address margin not present in IE 8/9 and Safari.
+ */
+/* line 203, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+figure {
+  margin: 1em 40px; }
+
+/**
+ * Address differences between Firefox and other browsers.
+ */
+/* line 211, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+hr {
+  box-sizing: content-box;
+  height: 0; }
+
+/**
+ * Contain overflow in all browsers.
+ */
+/* line 221, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+pre {
+  overflow: auto; }
+
+/**
+ * Address odd `em`-unit font size rendering in all browsers.
+ */
+/* line 229, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em; }
+
+/* Forms
+   ========================================================================== */
+/**
+ * Known limitation: by default, Chrome and Safari on OS X allow very limited
+ * styling of `select`, unless a `border` property is set.
+ */
+/**
+ * 1. Correct color not being inherited.
+ *    Known issue: affects color of disabled elements.
+ * 2. Correct font properties not being inherited.
+ * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
+ */
+/* line 252, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+  margin: 0;
+  /* 3 */ }
+
+/**
+ * Address `overflow` set to `hidden` in IE 8/9/10/11.
+ */
+/* line 266, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+button {
+  overflow: visible; }
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
+ * Correct `select` style inheritance in Firefox.
+ */
+/* line 277, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+button,
+select {
+  text-transform: none; }
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+/* line 290, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+  cursor: pointer;
+  /* 3 */ }
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+/* line 302, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+button[disabled],
+html input[disabled] {
+  cursor: default; }
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+/* line 311, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+/* line 322, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+input {
+  line-height: normal; }
+
+/**
+ * It's recommended that you don't attempt to style these elements.
+ * Firefox's implementation doesn't respect box-sizing, padding, or width.
+ *
+ * 1. Address box sizing set to `content-box` in IE 8/9/10.
+ * 2. Remove excess padding in IE 8/9/10.
+ */
+/* line 334, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+/* line 346, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari and Chrome
+ *    (include `-moz` to future-proof).
+ */
+/* line 357, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  /* 2 */
+  box-sizing: content-box; }
+
+/**
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+/* line 370, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+/* line 379, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+/**
+ * 1. Correct `color` not being inherited in IE 8/9/10/11.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+/* line 390, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+legend {
+  border: 0;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Remove default vertical scrollbar in IE 8/9/10/11.
+ */
+/* line 399, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+textarea {
+  overflow: auto; }
+
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ */
+/* line 408, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+optgroup {
+  font-weight: bold; }
+
+/* Tables
+   ========================================================================== */
+/**
+ * Remove most spacing between table cells.
+ */
+/* line 419, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* line 424, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/normalize.css */
+td,
+th {
+  padding: 0; }
+
+/*
+* Skeleton V2.0.4
+* Copyright 2014, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 12/29/2014
+*/
+/* Table of contents
+––––––––––––––––––––––––––––––––––––––––––––––––––
+- Grid
+- Base Styles
+- Typography
+- Links
+- Buttons
+- Forms
+- Lists
+- Code
+- Tables
+- Spacing
+- Utilities
+- Clearing
+- Media Queries
+*/
+/* Grid
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* line 31, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box; }
+
+/* line 38, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+.column,
+.columns {
+  width: 100%;
+  float: left;
+  box-sizing: border-box; }
+
+/* For devices larger than 400px */
+@media (min-width: 400px) {
+  /* line 46, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .container {
+    width: 85%;
+    padding: 0; } }
+
+/* For devices larger than 550px */
+@media (min-width: 550px) {
+  /* line 53, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .container {
+    width: 80%; }
+  /* line 55, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .column,
+  .columns {
+    margin-left: 4%; }
+  /* line 58, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .column:first-child,
+  .columns:first-child {
+    margin-left: 0; }
+  /* line 62, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .one.column,
+  .one.columns {
+    width: 4.66666666667%; }
+  /* line 64, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .two.columns {
+    width: 13.3333333333%; }
+  /* line 65, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .three.columns {
+    width: 22%; }
+  /* line 66, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .four.columns {
+    width: 30.6666666667%; }
+  /* line 67, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .five.columns {
+    width: 39.3333333333%; }
+  /* line 68, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .six.columns {
+    width: 48%; }
+  /* line 69, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .seven.columns {
+    width: 56.6666666667%; }
+  /* line 70, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .eight.columns {
+    width: 65.3333333333%; }
+  /* line 71, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .nine.columns {
+    width: 74.0%; }
+  /* line 72, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .ten.columns {
+    width: 82.6666666667%; }
+  /* line 73, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .eleven.columns {
+    width: 91.3333333333%; }
+  /* line 74, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .twelve.columns {
+    width: 100%;
+    margin-left: 0; }
+  /* line 76, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .one-third.column {
+    width: 30.6666666667%; }
+  /* line 77, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .two-thirds.column {
+    width: 65.3333333333%; }
+  /* line 79, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .one-half.column {
+    width: 48%; }
+  /* Offsets */
+  /* line 82, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-one.column,
+  .offset-by-one.columns {
+    margin-left: 8.66666666667%; }
+  /* line 84, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-two.column,
+  .offset-by-two.columns {
+    margin-left: 17.3333333333%; }
+  /* line 86, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-three.column,
+  .offset-by-three.columns {
+    margin-left: 26%; }
+  /* line 88, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-four.column,
+  .offset-by-four.columns {
+    margin-left: 34.6666666667%; }
+  /* line 90, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-five.column,
+  .offset-by-five.columns {
+    margin-left: 43.3333333333%; }
+  /* line 92, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-six.column,
+  .offset-by-six.columns {
+    margin-left: 52%; }
+  /* line 94, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-seven.column,
+  .offset-by-seven.columns {
+    margin-left: 60.6666666667%; }
+  /* line 96, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-eight.column,
+  .offset-by-eight.columns {
+    margin-left: 69.3333333333%; }
+  /* line 98, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-nine.column,
+  .offset-by-nine.columns {
+    margin-left: 78.0%; }
+  /* line 100, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-ten.column,
+  .offset-by-ten.columns {
+    margin-left: 86.6666666667%; }
+  /* line 102, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-eleven.column,
+  .offset-by-eleven.columns {
+    margin-left: 95.3333333333%; }
+  /* line 105, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-one-third.column,
+  .offset-by-one-third.columns {
+    margin-left: 34.6666666667%; }
+  /* line 107, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-two-thirds.column,
+  .offset-by-two-thirds.columns {
+    margin-left: 69.3333333333%; }
+  /* line 110, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  .offset-by-one-half.column,
+  .offset-by-one-half.columns {
+    margin-left: 52%; } }
+
+/* Base Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* NOTE
+html is set to 62.5% so that all the REM measurements throughout Skeleton
+are based on 10px sizing. So basically 1.5rem = 15px :) */
+/* line 121, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+html {
+  font-size: 62.5%; }
+
+/* line 123, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+body {
+  font-size: 1.5em;
+  /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222; }
+
+/* Typography
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* line 133, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-weight: 300; }
+
+/* line 137, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+h1 {
+  font-size: 4.0rem;
+  line-height: 1.2;
+  letter-spacing: -.1rem; }
+
+/* line 138, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+h2 {
+  font-size: 3.6rem;
+  line-height: 1.25;
+  letter-spacing: -.1rem; }
+
+/* line 139, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+h3 {
+  font-size: 3.0rem;
+  line-height: 1.3;
+  letter-spacing: -.1rem; }
+
+/* line 140, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+h4 {
+  font-size: 2.4rem;
+  line-height: 1.35;
+  letter-spacing: -.08rem; }
+
+/* line 141, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+h5 {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  letter-spacing: -.05rem; }
+
+/* line 142, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+h6 {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  letter-spacing: 0; }
+
+/* Larger than phablet */
+@media (min-width: 550px) {
+  /* line 146, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  h1 {
+    font-size: 5.0rem; }
+  /* line 147, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  h2 {
+    font-size: 4.2rem; }
+  /* line 148, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  h3 {
+    font-size: 3.6rem; }
+  /* line 149, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  h4 {
+    font-size: 3.0rem; }
+  /* line 150, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  h5 {
+    font-size: 2.4rem; }
+  /* line 151, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+  h6 {
+    font-size: 1.5rem; } }
+
+/* line 154, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+p {
+  margin-top: 0; }
+
+/* Links
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* line 160, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+a {
+  color: #1EAEDB; }
+
+/* line 162, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+a:hover {
+  color: #0FA0CE; }
+
+/* Buttons
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* line 168, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  box-sizing: border-box; }
+
+/* line 190, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; }
+
+/* line 203, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+.button.button-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary {
+  color: #FFF;
+  background-color: #33C3F0;
+  border-color: #33C3F0; }
+
+/* line 211, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB; }
+
+/* Forms
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* line 228, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  height: 38px;
+  padding: 6px 10px;
+  /* The 6px vertically centers text on FF, ignored by Webkit */
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box; }
+
+/* Removes awkward default styles on some inputs for iOS */
+/* line 245, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; }
+
+/* line 256, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+textarea {
+  min-height: 65px;
+  padding-top: 6px;
+  padding-bottom: 6px; }
+
+/* line 260, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid #33C3F0;
+  outline: 0; }
+
+/* line 271, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+label,
+legend {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: 600; }
+
+/* line 276, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+fieldset {
+  padding: 0;
+  border-width: 0; }
+
+/* line 279, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; }
+
+/* line 282, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+label > .label-body {
+  display: inline-block;
+  margin-left: .5rem;
+  font-weight: normal; }
+
+/* Lists
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* line 290, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+ul {
+  list-style: circle inside; }
+
+/* line 292, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+ol {
+  list-style: decimal inside; }
+
+/* line 294, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+ol, ul {
+  padding-left: 0;
+  margin-top: 0; }
+
+/* line 297, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin: 1.5rem 0 1.5rem 3rem;
+  font-size: 90%; }
+
+/* line 303, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+li {
+  margin-bottom: 1rem; }
+
+/* Code
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* line 309, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+code {
+  padding: .2rem .5rem;
+  margin: 0 .2rem;
+  font-size: 90%;
+  white-space: nowrap;
+  background: #F1F1F1;
+  border: 1px solid #E1E1E1;
+  border-radius: 4px; }
+
+/* line 317, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+pre > code {
+  display: block;
+  padding: 1rem 1.5rem;
+  white-space: pre; }
+
+/* Tables
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* line 325, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E1E1E1; }
+
+/* line 330, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+th:first-child,
+td:first-child {
+  padding-left: 0; }
+
+/* line 333, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+th:last-child,
+td:last-child {
+  padding-right: 0; }
+
+/* Spacing
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* line 340, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+button,
+.button {
+  margin-bottom: 1rem; }
+
+/* line 343, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+input,
+textarea,
+select,
+fieldset {
+  margin-bottom: 1.5rem; }
+
+/* line 348, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+pre,
+blockquote,
+dl,
+figure,
+table,
+p,
+ul,
+ol,
+form {
+  margin-bottom: 2.5rem; }
+
+/* Utilities
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* line 362, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+.u-full-width {
+  width: 100%;
+  box-sizing: border-box; }
+
+/* line 365, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+.u-max-full-width {
+  max-width: 100%;
+  box-sizing: border-box; }
+
+/* line 368, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+.u-pull-right {
+  float: right; }
+
+/* line 370, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+.u-pull-left {
+  float: left; }
+
+/* Misc
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* line 376, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+hr {
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  border-width: 0;
+  border-top: 1px solid #E1E1E1; }
+
+/* Clearing
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Self Clearing Goodness */
+/* line 387, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/skeleton.css */
+.container:after,
+.row:after,
+.u-cf {
+  content: "";
+  display: table;
+  clear: both; }
+
+/* Media Queries
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/*
+Note: The best way to structure the use of media queries is to create the queries
+near the relevant code. For example, if you wanted to change the styles for buttons
+on small devices, paste the mobile query code up in the buttons section and style it
+there.
+*/
+/* Larger than mobile */
+/* Larger than phablet (also point when grid becomes active) */
+/* Larger than tablet */
+/* Larger than desktop */
+/* Larger than Desktop HD */
+/*
+ * LAYOUT
+ */
+/* line 22, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+html, body {
+  height: 100%; }
+
+/* line 25, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+body {
+  -js-display: flex;
+  /* for polyfill */
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  font-family: "Droid Sans", sans-serif;
+  font-weight: 400; }
+
+/* line 30, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+#main {
+  width: 65%;
+  -js-display: flex;
+  /* for polyfill */
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap; }
+
+/* line 34, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+#sidebar {
+  width: 35%;
+  height: 100%;
+  overflow: hidden;
+  -js-display: flex;
+  /* for polyfill */
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  border-left: 1px solid #999;
+  margin-right: -1px; }
+
+/* line 43, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+#map {
+  min-height: 400px;
+  -webkit-flex-basis: 400px;
+      -ms-flex-preferred-size: 400px;
+          flex-basis: 400px;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  border-bottom: 1px solid #999;
+  z-index: 0; }
+
+/* line 50, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+#options {
+  padding: 0.6em; }
+
+/* line 53, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+#rides {
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  height: auto;
+  overflow: scroll;
+  background: white;
+  position: relative; }
+
+/* line 60, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+footer {
+  background: #666;
+  color: white;
+  font-size: 1.1rem;
+  text-align: center;
+  width: 100%;
+  -webkit-align-self: flex-end;
+      -ms-flex-item-align: end;
+          align-self: flex-end; }
+  /* line 68, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  footer a {
+    color: #a0def2; }
+
+@media (max-width: 499px) {
+  /* line 74, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  footer {
+    display: none; }
+  /* line 77, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  .avatar {
+    display: none; } }
+
+/*
+ * TABS + BEHAVIOUR
+ */
+/* line 87, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+#buttons {
+  padding-top: 0.5rem;
+  text-align: center; }
+  /* line 91, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  #buttons button {
+    margin: 0 0.5rem 0.5rem 0; }
+    @media (max-width: 570px) {
+      /* line 91, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+      #buttons button {
+        padding: 0 1rem;
+        font-size: 1.1rem;
+        line-height: 1.1rem;
+        height: 2em; } }
+
+/* line 103, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.friends .friends-rides {
+  display: block; }
+
+/* line 106, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.friends .club-rides,
+.friends form[name="club-selector"] {
+  display: none; }
+
+/* line 112, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.clubs .friends-rides, .clubs .club-rides {
+  display: none; }
+
+/* line 115, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.clubs .club-rides.active,
+.clubs form[name="club-selector"] {
+  display: block; }
+
+/*
+ * LISTS
+ */
+/* line 125, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+h5 {
+  /* ACTIVITIES text bar */
+  padding: 0.6em, 0, 0.4em;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: #999;
+  color: white;
+  margin-bottom: 0; }
+
+/* line 136, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+#rides ul {
+  list-style: none; }
+
+/* line 139, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+#rides li {
+  position: relative;
+  border-bottom: 1px solid #ccc;
+  background: white;
+  margin: 0;
+  padding: 0.3em 0.6em;
+  font-size: 1.2rem;
+  line-height: 1.4em; }
+  /* line 148, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  #rides li:hover, #rides li.selected {
+    background: #cdeef8; }
+
+/* line 152, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.reload {
+  height: 24px;
+  width: 24px;
+  background: url(../img/refresh.png);
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  margin-left: -12px;
+  display: none; }
+  /* line 162, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  .reload:hover {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+    transition: -webkit-transform 1s;
+    transition: transform 1s;
+    transition: transform 1s, -webkit-transform 1s;
+    cursor: pointer; }
+
+/*
+ * ACTIVITY / ATHLETE STYLES
+ */
+/* line 173, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+h6 {
+  font-weight: 700;
+  margin-bottom: 0; }
+
+/* line 177, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.athlete {
+  font-weight: 700; }
+
+/* line 180, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  position: absolute;
+  top: 50%;
+  right: 1em;
+  margin-top: -24px; }
+
+/* line 189, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.icon {
+  float: left;
+  width: 16px;
+  height: 16px;
+  margin: 0.25em;
+  margin-left: 0; }
+
+/* line 196, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.ride {
+  background: url(../img/ride.svg) 0 -16px; }
+
+/* line 199, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.run {
+  background: url(../img/run.svg) 0 -16px; }
+
+/* line 202, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.kudos {
+  background: url(../img/kudos.svg) 0 -16px; }
+
+/*
+ * FORM ELEMENTS
+ */
+/* line 210, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+a[name="options"] {
+  font-weight: 700; }
+  /* line 213, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  a[name="options"]:hover {
+    cursor: pointer; }
+  /* line 216, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  a[name="options"] span {
+    width: 2em; }
+
+/* line 220, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+label {
+  display: inline;
+  font-weight: 400; }
+
+/* line 224, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+input[type="number"] {
+  display: inline;
+  padding: 0.1em;
+  height: auto; }
+
+/* line 229, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+input[type="checkbox"] {
+  display: inline;
+  margin: 0 0.3em; }
+
+/* line 233, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+form#map-options {
+  height: 0;
+  display: none;
+  transition: height 1s ease-in-out; }
+  /* line 238, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  form#map-options.open {
+    height: 12em;
+    display: block; }
+  /* line 243, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  form#map-options p {
+    margin: 0; }
+
+/* line 247, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+form {
+  margin-bottom: 0; }
+
+/*
+ * TOOLTIPS
+ */
+/* line 255, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.leaflet-popup {
+  padding: 0.2em;
+  min-width: 200px; }
+
+/* line 262, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.leaflet-popup-content {
+  margin: 6px 8px !important;
+  font-family: "Droid Sans", sans-serif; }
+
+/*
+ * MODAL
+ */
+/* line 271, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.modal-bg {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  -js-display: flex;
+  /* for polyfill */
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 1; }
+
+/* line 281, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.modal-dialog {
+  padding: 1em;
+  background: white;
+  text-align: center;
+  border-radius: 4px;
+  z-index: 2; }
+
+/* line 288, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.strava-ish {
+  background: #FC4C02;
+  color: white; }
+
+/* line 292, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.popup-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 0.5em;
+  height: 2em;
+  z-index: 2;
+  text-align: center; }
+
+/* line 301, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.cookie-message {
+  background: #1EAEDB;
+  color: white;
+  text-align: center;
+  width: 100%;
+  -webkit-flex-basis: 1.4em;
+      -ms-flex-preferred-size: 1.4em;
+          flex-basis: 1.4em;
+  transition: height 1s ease-in-out; }
+  /* line 309, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  .cookie-message a {
+    color: white;
+    text-decoration: none; }
+    /* line 313, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+    .cookie-message a:hover {
+      text-decoration: underline; }
+  /* line 318, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  .cookie-message.hidden {
+    height: 0;
+    display: none; }
