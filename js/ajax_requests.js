@@ -11,7 +11,7 @@ ajax.getClubRides = function (cid) {
 		// data to be added to query string:
 		data: {
 			resource: 'club_activities',
-			id: cid
+			id: null // cid
 		},
 		dataType: 'json',
 		timeout: 3000,
@@ -38,6 +38,15 @@ ajax.getClubRides = function (cid) {
 			// Filter displayed data:
 			heatmap.filterPaths(rides.applyFilter());
 			ui.filterHTML(rides.applyFilter());
+		},
+		error: function() {
+			console.log("Failed to load club rides for", cid);
+			// Create "try again" button:
+			var el = $('<a class="reload"></a>');
+			$(el).click(function() {
+				ajax.getClubRides(cid);
+			});
+			$("#rides").append(el);
 		}
 	});
 };

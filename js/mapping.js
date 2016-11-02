@@ -9,10 +9,7 @@ var heatmap = {
 
 	init: function() {
 		// Define MapBox basemap ('light'):
-		var attribution = `
-			Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors
-			<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,
-			Imagery &copy; <a href="http://mapbox.com">Mapbox</a>`,
+		var attribution = `&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> + <a href="http://mapbox.com">Mapbox</a>`,
 			mapboxBaseUrl = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=',
 			access_token = 'pk.eyJ1IjoibWVlcmthdG9yIiwiYSI6ImNpdXF4Mm91azAwMGEyb21pcDFmN3J5NXcifQ.pW6SQDz9wpFr619vzHtcAA';
 

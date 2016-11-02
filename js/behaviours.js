@@ -99,6 +99,7 @@ Zepto(function($) {
 	// Close cookie message:
 	$('.cookie-message a').click(function() {
 		$(this).parent().addClass('hidden');
+		document.cookie = "okCookies=true";
 	});
 
 });

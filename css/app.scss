@@ -41,35 +41,62 @@ body {
 	margin-right: -1px;
 }
 #map {
-	height: 400px;
+	min-height: 400px;
 	flex-basis: 400px;
+	flex-grow: 1;
 	border-bottom: 1px solid #999;
 	z-index: 0;
 }
 #options {
 	padding: 0.6em;
-	flex-grow: 1;
 }
 #rides {
 	flex-grow: 1;
 	height:	auto;
 	overflow: scroll;
+	background: white;
 }
 footer {
 	background: #666;
 	color: white;
+	font-size: 1.1rem;
 	text-align: center;
 	width: 100%;
 	align-self: flex-end;
+
+	a {
+		color: lighten($primary-color, 30%);
+	}
 }
+// Hide some stuff on phones:
+@media (max-width: 499px) {
+	footer {
+		display: none;
+	}
+	.avatar {
+		display: none;
+	}
+}
+
 
 
 /*
  * TABS + BEHAVIOUR
  */
 #buttons {
-	padding-top: 0.5em;
+	padding-top: 0.5rem;
 	text-align: center;
+
+	button {
+		margin: 0 0.5rem 0.5rem 0;
+
+		@media (max-width: 570px) {
+			padding: 0 1rem;
+			font-size: 1.1rem;
+			line-height: 1.1rem;
+			height: 2em;
+		}
+	}
 }
 .friends {
 	.friends-rides {
@@ -80,7 +107,6 @@ footer {
 		display: none;
 	}
 }
-
 .clubs {
 	.friends-rides, .club-rides {
 		display: none;
@@ -113,13 +139,22 @@ h5 {	/* ACTIVITIES text bar */
 	position: relative;
 	border-bottom: 1px solid #ccc;
 	margin: 0;
-	padding: 0.3em 1em;
+	padding: 0.3em 0.6em;
 	font-size: 1.2rem;
 	line-height: 1.4em;
 
 	&:hover, &.selected {
 		background: lighten($primary-color, 40%);
 	}
+}
+.reload {
+	height: 24px;
+	width: 24px;
+	background: url(../img/refresh.png);
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	margin-left: -12px;
 }
 
 
