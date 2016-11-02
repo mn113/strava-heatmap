@@ -26,6 +26,7 @@ echo '<script>var user = '. json_encode($user) .', mode = "'. $mode .'";</script
 <section id="main">
 	<div id="map"></div>
 	<?php include('templates/form.inc.php'); ?>
+	<div class="cookie-message">This site uses cookies to remember you. <a href="#">[OK]</a></div>
 	<footer>Footer</footer>
 </section>
 

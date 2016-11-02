@@ -31,7 +31,7 @@ else {
     // Now that the user has agreed to let the app know their data, the app can register itself with the API:
     $user_access_token = $api->setAccessToken($result->access_token);
     // Make the token last a while:
-    setcookie('user_access_token', $user_access_token, time()+60*30, '/', 'localhost', false, false);
+    setcookie('user_access_token', $user_access_token, time()+60*60, '/', 'stravamap.local', false, false);
 
 	// Do this bit as an unobtrusive popup:
     echo '<div class="popup-bar strava-ish autohide">';

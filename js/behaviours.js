@@ -13,12 +13,12 @@ Zepto(function($) {
 		ui.setActiveTab('clubs');
 	}
 
-	// Hide autohide elements after delay:		// DOESN'T WORK
+	// Hide autohide elements after delay:
 	$('.autohide').each(function() {
 		var el = $(this);
 		setTimeout(function() {
 			// Slide it left:
-			$(el).animate({"left": "-100%"}, 1500);	// NOT WORKING
+			$(el).animate({"left": "-100%"}, 1500);
 		}, 2000);
 	});
 
@@ -75,21 +75,30 @@ Zepto(function($) {
 	});
 
 	// Form text fields to perform filtering
-	$('#map-options input[type="text"]').on('keyup', function() {
+	$('#map-options input[type="number"]').on('change', function() {
 		var elName = $(this).attr("name"),
 			elVal = $(this).val();
 		//console.log(elName, elVal);
 
-		// Set properties of rides.filter object:
-		rides.filter[elName] = elVal;
-		// Perform map filtering:
-		heatmap.filterPaths(rides.applyFilter());
-		ui.filterHTML(rides.applyFilter());
+		// Basic HTML5 validation (only act upon input value if it's in range):
+		if (this.validity.valid) {
+			// Set properties of rides.filter object:
+			rides.filter[elName] = elVal;
+			// Perform map filtering:
+			heatmap.filterPaths(rides.applyFilter());
+			ui.filterHTML(rides.applyFilter());
+		}
+		else { console.log($(this).val(), this.validity); }
 	});
 
 	// Close modal on link click:
  	$('.modal-dialog a').click(function() {
 		$('.modal-bg').hide();
+	});
+
+	// Close cookie message:
+	$('.cookie-message a').click(function() {
+		$(this).parent().addClass('hidden');
 	});
 
 });

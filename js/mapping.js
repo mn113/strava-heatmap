@@ -262,18 +262,34 @@ var ui = {
 	// Generate the path/title colour based on the rideId:
 	selectColour: function(rid) {
 		var lineColours = [
-			'#f44336',
-			'#8bc34a',
-			'#fdd835',
-			'#039be5',
-			'#1a237e',
-			'#e65100',
-			'#aa00ff',
-			'#f06292',
-			'#cddc39',
-			'#18ffff'
+//			'#f44336',
+//			'#8bc34a',
+//			'#fdd835',
+//			'#039be5',
+//			'#1a237e',
+//			'#e65100',
+//			'#aa00ff',
+//			'#f06292',
+//			'#cddc39',
+//			'#18ffff'
+			'#c543a9',
+			'#ff99ff',
+			'#e62e00',
+			'#e6726f',
+			'#ffa124',
+			'#ffca99',
+			'#ffe600',
+			'#cccc00',
+			'#bae221',
+			'#91e8af',
+			'#00c17a',
+			'#7ddfff',
+			'#5395e0',
+			'#0054b6',
+			'#cc99ff',
+			'#5500cc'
 		];
-		return lineColours[rid % 10];	// 0-9
+		return lineColours[rid % 16];	// 0-15
 	},
 
 	// Add text colour to the ride titles:

@@ -173,13 +173,18 @@ a[name="options"] {
 		width: 2em;
 	}
 }
-input,
 label {
 	display: inline;
+	font-weight: 400;
 }
-#rides input[type=checkbox] {
-	float: left;
-	margin: 2.5em 1em 2.5em 0;
+input[type="number"] {
+	display: inline;
+	padding: 0.1em;
+	height: auto;
+}
+input[type="checkbox"] {
+	display: inline;
+	margin: 0 0.3em;
 }
 form#map-options {
 	height: 0;
@@ -248,4 +253,26 @@ form {
 	height: 2em;
 	z-index: 2;
 	text-align: center;
+}
+.cookie-message {
+	background: $primary-color;
+	color: white;
+	text-align: center;
+	width: 100%;
+	flex-basis: 1.4em;
+	transition: height 1s ease-in-out;
+
+	a {
+		color: white;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	&.hidden {
+		height: 0;
+		display: none;
+	}
 }
