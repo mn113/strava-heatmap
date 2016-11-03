@@ -1,6 +1,0 @@
-{
-    "require": {
-        "monolog/monolog": "1.0.*",
-        "php-console/php-console": "^3.1"
-    }
-}

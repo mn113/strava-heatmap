@@ -11,6 +11,7 @@ else {
     // First step of OAuth: make the user click through to https://www.strava.com/oauth/authorize
     // and after they log in or accept, Strava will redirect them back... here:
     if (!isset($_GET['code'])) {
+        // No authorisation until we visit authUrl and get code back
         $authUrl = $api->authenticationUrl(AUTH_REDIRECT_URI);
         // Need to let non-Strava users use the app in demo mode:
         $mode = 'demo';
@@ -23,7 +24,7 @@ else {
         // Now that the user has agreed to let the app know their data, the app can register itself with the API:
         $user_access_token = $api->setAccessToken($result->access_token);
         // Make the token last a while:
-        setcookie('user_access_token', $user_access_token, time()+60*60, '/', 'stravamap.local', false, false);
+        setcookie('user_access_token', $user_access_token, time()+60*60, '/', DOMAIN, false, false);
         $mode = 'logged';
     }
 
