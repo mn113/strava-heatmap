@@ -1182,61 +1182,78 @@ h6 {
 .kudos {
   background: url(../img/kudos.svg) 0 -16px; }
 
+/* line 205, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.multi {
+  background: url(../img/multi.svg) 0 -16px; }
+
+/* line 208, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+a.stravalink {
+  width: 16px;
+  height: 16px;
+  background: url(../img/stravalink2.svg);
+  display: none; }
+
+/* line 214, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+.leaflet-popup-content a.stravalink,
+li:hover a.stravalink,
+li.selected a.stravalink {
+  display: inline-block; }
+
 /*
  * FORM ELEMENTS
  */
-/* line 210, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 224, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 a[name="options"] {
   font-weight: 700; }
-  /* line 213, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  /* line 227, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
   a[name="options"]:hover {
     cursor: pointer; }
-  /* line 216, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  /* line 230, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
   a[name="options"] span {
     width: 2em; }
 
-/* line 220, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 234, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 label {
   display: inline;
   font-weight: 400; }
 
-/* line 224, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 238, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 input[type="number"] {
   display: inline;
   padding: 0.1em;
   height: auto; }
 
-/* line 229, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 243, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 input[type="checkbox"] {
   display: inline;
   margin: 0 0.3em; }
 
-/* line 233, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 247, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 form#map-options {
   height: 0;
   display: none;
   transition: height 1s ease-in-out; }
-  /* line 238, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  /* line 252, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
   form#map-options.open {
     height: 12em;
     display: block; }
-  /* line 243, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  /* line 257, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
   form#map-options p {
     margin: 0; }
 
-/* line 247, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 261, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 form {
   margin-bottom: 0; }
 
 /*
  * TOOLTIPS
  */
-/* line 255, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 269, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 .leaflet-popup {
   padding: 0.2em;
   min-width: 200px; }
 
-/* line 262, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 276, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 .leaflet-popup-content {
   margin: 6px 8px !important;
   font-family: "Droid Sans", sans-serif; }
@@ -1244,7 +1261,7 @@ form {
 /*
  * MODAL
  */
-/* line 271, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 285, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 .modal-bg {
   position: fixed;
   height: 100%;
@@ -1269,7 +1286,7 @@ form {
           align-items: center;
   z-index: 1; }
 
-/* line 281, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 295, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 .modal-dialog {
   padding: 1em;
   background: white;
@@ -1277,12 +1294,12 @@ form {
   border-radius: 4px;
   z-index: 2; }
 
-/* line 288, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 302, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 .strava-ish {
   background: #FC4C02;
   color: white; }
 
-/* line 292, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 306, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 .popup-bar {
   position: absolute;
   top: 0;
@@ -1292,7 +1309,7 @@ form {
   z-index: 2;
   text-align: center; }
 
-/* line 301, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+/* line 315, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
 .cookie-message {
   background: #1EAEDB;
   color: white;
@@ -1302,14 +1319,14 @@ form {
       -ms-flex-preferred-size: 1.4em;
           flex-basis: 1.4em;
   transition: height 1s ease-in-out; }
-  /* line 309, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  /* line 323, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
   .cookie-message a {
     color: white;
     text-decoration: none; }
-    /* line 313, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+    /* line 327, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
     .cookie-message a:hover {
       text-decoration: underline; }
-  /* line 318, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
+  /* line 332, /Users/martin/Dropbox/htdocs/2016/strava-heatmap/css/app.scss */
   .cookie-message.hidden {
     height: 0;
     display: none; }

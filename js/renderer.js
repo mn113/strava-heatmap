@@ -17,15 +17,21 @@ renderer.formatTime = function(utcDate) {
 	return hours + ':' + minutes;
 };
 
-// Improve Stravas distance formatting:
+// Improve Stravas distance formatting (m -> km):
 renderer.formatKm = function(metres) {
-	return '&roarr;&nbsp;' + (metres / 1000).toFixed(1) + 'km';	// 1 decimal place
+	return (metres / 1000).toFixed(1) + 'km';	// 1 decimal place
 };
 
 // Improve Stravas elevation formatting:
 renderer.formatElev = function(metres) {
-	return '&lrtri;&nbsp;' + metres.toFixed(0) + 'm';
+	return metres.toFixed(0) + 'm';
 };
+
+// Improve Stravas speed formatting (m/s -> km/h):
+renderer.formatSpeed = function(ms) {
+	return (ms * 3.6).toFixed(1) + 'km/h';
+};
+
 
 // Return html of fetched activities as list items:
 renderer.printListItems = function(rides) {
@@ -44,14 +50,16 @@ renderer.printListItems = function(rides) {
 
 // Return the inline data-attributes for the list item html:
 renderer.printRideDataAttributes = function(ride, ath) {
-	var html = `data-rideId="${ride.id}"
+	var html = `data-rideid="${ride.id}"
             	data-date="${renderer.formatDate(ride.start_date_local)}"
             	data-time="${renderer.formatTime(ride.start_date_local)}"
             	data-title="${ride.name}"
             	data-type="${ride.type}"
             	data-dist="${renderer.formatKm(ride.distance)}"
             	data-elev="${renderer.formatElev(ride.total_elevation_gain)}"
+				data-speed="${renderer.formatSpeed(ride.average_speed)}"
             	data-athlete="${ath.firstname} ${ath.lastname}"
+				data-athleteid="${ath.id}"
             	data-avatar="${ath.profile}"
             	data-summary="${ride.map.summary_polyline}"`;
 	return html;
@@ -59,18 +67,26 @@ renderer.printRideDataAttributes = function(ride, ath) {
 
 // Return html with ride data and athlete data:
 renderer.printRideDetails = function(ride, ath) {
-	var html = `<h6><span class="icon ${ride.type.toLowerCase()}"></span>${ride.name}</h6>
+	var html = `<h6>
+					<span class="icon ${ride.type.toLowerCase()}"></span>
+					${ride.name}
+					${renderer.makeRideLink(ride.id)}
+				</h6>
             	<span>${renderer.formatDate(ride.start_date_local)} ${renderer.formatTime(ride.start_date_local)}</span>
-            	<div>${renderer.printAthlete(ath)}</div>
-            	<span>${renderer.formatKm(ride.distance)}</span>
-            	<span>${renderer.formatElev(ride.total_elevation_gain)}</span>`;
+            	<div>
+					${renderer.printAthlete(ath)}
+				</div>
+            	<span>&roarr;&nbsp;${renderer.formatKm(ride.distance)}</span>
+            	<span>&lrtri;&nbsp;${renderer.formatElev(ride.total_elevation_gain)}</span>
+				<span>&raquo;&nbsp;${renderer.formatSpeed(ride.average_speed)}</span>
+				`;
     return html;
 };
 
 // Return html with some athlete data:
 renderer.printAthlete = function(ath) {
 	var html = `<img class="avatar" src="${ath.profile}">
-            	<span class="athlete">${ath.firstname} ${ath.lastname}</span>
+            	<span class="athlete">${renderer.makeAthleteLink(ath.id, ath.firstname+' '+ath.lastname)}</span>
             	<span class="city">(${ath.city})</span>`;
 	return html;
 };
@@ -83,4 +99,13 @@ renderer.printClubs = function(clubs) {
 		html += `<option data-cid="${club.id}">${club.name}</option>`;
 	}
 	return html;
+};
+
+// Make a link to a Strava athlete:
+renderer.makeAthleteLink = function(id, text) {
+	return `<a target="_blank" href="http://www.strava.com/athletes/${id}">${text}</a>`;
+};
+// Make a link to a Strava ride:
+renderer.makeRideLink = function(id) {
+	return `<a target="_blank" class="stravalink" href="http://www.strava.com/activities/${id}"></a>`;
 };

@@ -120,12 +120,16 @@ var heatmap = {
 			<h6 id="${data.rideId}" style="color:${data.color}">
 				<span class="icon ${data.type.toLowerCase()}"></span>
 				${data.title}
+				${renderer.makeRideLink(data.rideId)}
 			</h6>
 			<img class='avatar' src='${data.avatar}'>
 			<span class='date'>${data.date}&nbsp;${data.time}</span>
-			<div class='athlete'>${data.athlete}</div>
-			<span>${data.dist}</span>
-			<span>${data.elev}</span>
+			<div class='athlete'>
+				${renderer.makeAthleteLink(data.athleteId, data.athlete)}
+			</div>
+			<span>&roarr;&nbsp;${data.dist}</span>
+			<span>&lrtri;&nbsp;${data.elev}</span>
+			<span>&raquo;&nbsp;${data.speed}</span>
 		`;
 	},
 
@@ -167,7 +171,7 @@ var heatmap = {
 		// Bring to front using z-index: layer.bringToFront():
 		heatmap.paths[rideId].bringToFront();
 		// Open its popup:
-		heatmap.paths[rideId].openPopup();
+		heatmap.paths[rideId].openPopup();	// NOT WORKING?
 	},
 
 
@@ -219,7 +223,9 @@ var heatmap = {
 			'type': ride.data('type'),
 			'dist': ride.data('dist'),
 			'elev': ride.data('elev'),
+			'speed': ride.data('speed'),
 			'athlete': ride.data('athlete'),
+			'athleteId': ride.data('athleteid'),
 			'avatar': ride.data('avatar'),
 			'path': ride.data('summary')
 		};
@@ -275,16 +281,6 @@ var ui = {
 	// Generate the path/title colour based on the rideId:
 	selectColour: function(rid) {
 		var lineColours = [
-//			'#f44336',
-//			'#8bc34a',
-//			'#fdd835',
-//			'#039be5',
-//			'#1a237e',
-//			'#e65100',
-//			'#aa00ff',
-//			'#f06292',
-//			'#cddc39',
-//			'#18ffff'
 			'#c543a9',
 			'#ff99ff',
 			'#e62e00',
@@ -319,7 +315,7 @@ var ui = {
 		$('li').hide();
 		filteredList.forEach(function(ride) {
 			// Show <li> items with matching rideId in their data attributes:
-			$('li[data-rideId="'+ ride.id +'"]').show();
+			$('li[data-rideid="'+ ride.id +'"]').show();
 		});
 	},
 

@@ -202,6 +202,20 @@ h6 {
 .kudos {
 	background: url(../img/kudos.svg) 0 -16px;
 }
+.multi {
+	background: url(../img/multi.svg) 0 -16px;
+}
+a.stravalink {
+	width: 16px;
+	height: 16px;
+	background: url(../img/stravalink2.svg);
+	display: none;
+}
+.leaflet-popup-content a.stravalink,
+li:hover a.stravalink,
+li.selected a.stravalink {
+	display: inline-block;
+}
 
 
 /*
