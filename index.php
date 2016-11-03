@@ -28,7 +28,7 @@ else if ($mode == 'demo') {
     echo '<div class="modal-bg">';
     echo '<div class="modal-dialog">';
     echo '<p>To use this app, you need to log in to Strava.</p>';
-    echo '<a href="' .$authUrl .'" target="_blank"><button class="strava-ish">Authorise this app</button></a>';
+    echo '<a href="' .$authUrl .'"><button class="strava-ish">Authorise this app</button></a>';
     echo '<p><a href="#">Close</a></p>';
     echo '</div></div>';
 }

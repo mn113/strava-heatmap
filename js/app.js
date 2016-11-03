@@ -314,6 +314,7 @@ var heatmap = {
 		var ridePath = L.polyline(rideCoords, {
 							color: ui.selectColour(data.rideId) || 'red',
 							opacity: '0.8',
+							weight: 3,
 							className: 'rid' + data.rideId	// unique className will allow selection later
 						});
 
@@ -374,8 +375,23 @@ var heatmap = {
 		var bounds = heatmap.paths[rideId].getBounds();
 		heatmap.map.fitBounds(bounds, {padding: [20,20]});	// flyToBounds() is too slow and doesn't render paths
 
+		// Reset style for all paths:
+		$.each(heatmap.paths, function(index, path){
+			path.setStyle({
+				opacity: 0.6,
+				weight: 3
+			});
+		});
+
+		// Boost its opacity and width:
+		heatmap.paths[rideId].setStyle({
+			opacity: 1,
+			weight: 4
+		});
 		// Bring to front using z-index: layer.bringToFront():
 		heatmap.paths[rideId].bringToFront();
+		// Open its popup:
+		heatmap.paths[rideId].openPopup();
 	},
 
 
