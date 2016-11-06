@@ -8,7 +8,7 @@
 	<script src="js/mapping.js"></script>
 	<script src="js/behaviours.js" defer></script>
 	<script src="js/filters.js" defer></script-->
-	<script src="js/app.js" defer></script>
+	<script src="js/app.js" defer></script><!-- .min. version has bugs due to ES6 minifier -->
 	<!-- endinject -->
 
 </body>

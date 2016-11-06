@@ -148,6 +148,7 @@ h5 {	/* ACTIVITIES text bar */
 	&:hover, &.selected {
 		background: lighten($primary-color, 40%);
 	}
+
 }
 .reload {
 	height: 24px;
@@ -186,29 +187,48 @@ h6 {
 	right: 1em;
 	margin-top: -24px;
 }
+.stats {
+	margin-right: 0.4em;
+}
+.stats:hover {
+	color: $strava-orange;
+}
 .icon {
-	float: left;
 	width: 16px;
 	height: 16px;
+	background-repeat: no-repeat;
+}
+h6 .icon {
+	float: left;
 	margin: 0.25em;
 	margin-left: 0;
 }
 .ride {
-	background: url(../img/ride.svg) 0 -16px;
+	background: url(../img/ride.svg) 0 -16px no-repeat;
 }
 .run {
-	background: url(../img/run.svg) 0 -16px;
+	background: url(../img/run.svg) 0 -16px no-repeat;
 }
 .kudos {
-	background: url(../img/kudos.svg) 0 -16px;
+	background: url(../img/kudos.svg) 0 -2px no-repeat;
+	display: inline;
+	padding-left: 20px;
+
+	&:hover {
+		background-position: 0 -18px;
+		cursor: pointer;
+	}
+	&.given {
+		background-position: 0 -50px;
+	}
 }
 .multi {
-	background: url(../img/multi.svg) 0 -16px;
+	background: url(../img/multi.svg) 0 -16px no-repeat;
 }
 a.stravalink {
 	width: 16px;
 	height: 16px;
-	background: url(../img/stravalink2.svg);
+	background: url(../img/stravalink2.svg) no-repeat;
 	display: none;
 }
 .leaflet-popup-content a.stravalink,

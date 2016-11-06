@@ -61,7 +61,9 @@ renderer.printRideDataAttributes = function(ride, ath) {
             	data-athlete="${ath.firstname} ${ath.lastname}"
 				data-athleteid="${ath.id}"
             	data-avatar="${ath.profile}"
-            	data-summary="${ride.map.summary_polyline}"`;
+            	data-summary="${ride.map.summary_polyline}"
+				data-kudos-count=${ride.kudos_count}
+				data-has-kudoed=${ride.has_kudoed}`;
 	return html;
 };
 
@@ -76,9 +78,10 @@ renderer.printRideDetails = function(ride, ath) {
             	<div>
 					${renderer.printAthlete(ath)}
 				</div>
-            	<span>&roarr;&nbsp;${renderer.formatKm(ride.distance)}</span>
-            	<span>&lrtri;&nbsp;${renderer.formatElev(ride.total_elevation_gain)}</span>
-				<span>&raquo;&nbsp;${renderer.formatSpeed(ride.average_speed)}</span>
+            	<span class="stats">&roarr;&nbsp;${renderer.formatKm(ride.distance)}</span>
+            	<span class="stats">&lrtri;&nbsp;${renderer.formatElev(ride.total_elevation_gain)}</span>
+				<span class="stats">&raquo;&nbsp;${renderer.formatSpeed(ride.average_speed)}</span>
+				<span class="icon kudos ${ride.has_kudoed ? 'given' : ''}">${ride.kudos_count}</span>
 				`;
     return html;
 };

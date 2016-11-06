@@ -198,7 +198,9 @@ renderer.printRideDataAttributes = function(ride, ath) {
             	data-athlete="${ath.firstname} ${ath.lastname}"
 				data-athleteid="${ath.id}"
             	data-avatar="${ath.profile}"
-            	data-summary="${ride.map.summary_polyline}"`;
+            	data-summary="${ride.map.summary_polyline}"
+				data-kudos-count=${ride.kudos_count}
+				data-has-kudoed=${ride.has_kudoed}`;
 	return html;
 };
 
@@ -213,9 +215,10 @@ renderer.printRideDetails = function(ride, ath) {
             	<div>
 					${renderer.printAthlete(ath)}
 				</div>
-            	<span>&roarr;&nbsp;${renderer.formatKm(ride.distance)}</span>
-            	<span>&lrtri;&nbsp;${renderer.formatElev(ride.total_elevation_gain)}</span>
-				<span>&raquo;&nbsp;${renderer.formatSpeed(ride.average_speed)}</span>
+            	<span class="stats">&roarr;&nbsp;${renderer.formatKm(ride.distance)}</span>
+            	<span class="stats">&lrtri;&nbsp;${renderer.formatElev(ride.total_elevation_gain)}</span>
+				<span class="stats">&raquo;&nbsp;${renderer.formatSpeed(ride.average_speed)}</span>
+				<span class="icon kudos ${ride.has_kudoed ? 'given' : ''}">${ride.kudos_count}</span>
 				`;
     return html;
 };
@@ -254,7 +257,6 @@ var heatmap = {
 	layerGroups: null,		// friends, club1, club2...
 	layerControl: null,
 	paths: {},	//?
-	topLayerIndex: 1000,
 
 	init: function() {
 		// Define MapBox basemap ('light'):
@@ -332,7 +334,7 @@ var heatmap = {
 
 
 	createPath: function(data) {
-		// Convert Strava's Polyline to coords:
+		// Convert Strava's Polyline to coords using 3rd party polyline library:
 		var rideCoords = window.polyline.decode(data.path);
 
 		// Create path:
@@ -376,9 +378,10 @@ var heatmap = {
 			<div class='athlete'>
 				${renderer.makeAthleteLink(data.athleteId, data.athlete)}
 			</div>
-			<span>&roarr;&nbsp;${data.dist}</span>
-			<span>&lrtri;&nbsp;${data.elev}</span>
-			<span>&raquo;&nbsp;${data.speed}</span>
+			<span class="stats">&roarr;&nbsp;${data.dist}</span>
+			<span class="stats">&lrtri;&nbsp;${data.elev}</span>
+			<span class="stats">&raquo;&nbsp;${data.speed}</span>
+			<span class="icon kudos ${data.hasKudoed ? 'given' : ''}">${data.kudosCount}</span>
 		`;
 	},
 
@@ -476,7 +479,9 @@ var heatmap = {
 			'athlete': ride.data('athlete'),
 			'athleteId': ride.data('athleteid'),
 			'avatar': ride.data('avatar'),
-			'path': ride.data('summary')
+			'path': ride.data('summary'),
+			'kudosCount': ride.data('kudos-count'),
+			'hasKudoed': ride.data('has-kudoed')
 		};
 
 		if (data.path) {
@@ -502,14 +507,6 @@ var heatmap = {
 		});
 	},
 
-
-	// Misleading function because Leaflet only renders as visible, what fits in the viewport...
-	countVisiblePaths: function() {
-		var visibles = $('path').filter(function() {
-				return $(this).is(':visible');
-		});
-		return visibles.length + ' paths shown';
-	}
 };
 
 
