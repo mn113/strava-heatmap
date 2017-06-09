@@ -42,7 +42,7 @@ More or less completed, stable, more features may still be added.
 
 ## Contributing
 
-This project is not looking for contributions, but any [issues](issues/) created (bugs, ideas) will be addressed.
+This project is not looking for contributions, but any [issues](https://github.com/mn113/strava-heatmap/issues/) created (bugs, ideas) will be addressed.
 
 
 ## License
