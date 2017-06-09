@@ -83,10 +83,10 @@ gulp.task('scripts2', function(callback) {
         concat('app.js'),
         gulp.dest(outputDir + '/js'),
         size(),
-        minifier(options, uglify),      // can handle ES6
-        rename({suffix: '.min'}),
-        gulp.dest(outputDir + '/js'),
-        size(),
+//        minifier(options, uglify),      // removed because it mishandles ES6
+//        rename({suffix: '.min'}),
+//        gulp.dest(outputDir + '/js'),
+//        size(),
         notify({ message: 'Scripts2 task complete' })
     ], callback);
 });
