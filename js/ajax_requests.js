@@ -65,6 +65,8 @@ ajax.getFriendsRides = function() {
 		dataType: 'json',
 		timeout: 3000,
 		success: function(data) {
+			if (!data) return;
+			
 			// Store data in raw form:
 			data.forEach(function(el) {
 				rides.all.push(el);
