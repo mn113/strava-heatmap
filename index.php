@@ -27,9 +27,10 @@ else if ($mode == 'demo') {
 	// Do this bit as modal / closable div
     echo '<div class="modal-bg">';
     echo '<div class="modal-dialog">';
-    echo '<p>To use this app, you need to log in to Strava.</p>';
+    echo '<p>In 2018, Strava have changed their API, severely crippling third-party apps like this one. I now can\'t display your friends\' rides at all.</p>';
+    echo '<p>To use this app fully, you need to log in to Strava.</p>';
     echo '<a href="' .$authUrl .'"><button class="strava-ish">Authorise this app</button></a>';
-    echo '<p><a href="#">Close</a></p>';
+    echo '<p><a href="#">Close and use default profile</a></p>';
     echo '</div></div>';
 }
 

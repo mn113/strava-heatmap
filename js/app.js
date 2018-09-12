@@ -17,6 +17,9 @@ ajax.getClubRides = function (cid) {
 		dataType: 'json',
 		timeout: 3000,
 		success: function(data) {
+
+			console.log(data);
+			
 			// Store data in raw form:
 			data.forEach(function(el) {
 				rides.all.push(el);
