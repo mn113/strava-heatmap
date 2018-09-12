@@ -1,7 +1,7 @@
 // Define dependencies:
 var gulp = require('gulp'),
     // CSS-specific:
-    sass = require('gulp-sass'),
+    //sass = require('gulp-sass'), // broken on OSX
     autoprefixer = require('gulp-autoprefixer'),
     cssnano = require('gulp-cssnano'),
     // JS-specific:
@@ -24,6 +24,7 @@ var gulp = require('gulp'),
     del = require('del');
 var outputDir = '.';
 
+/*
 // Pre-process CSS, autoprefix them, rename, minify, save:
 gulp.task('styles', function() {
     return gulp.src('css/app.scss')
@@ -39,7 +40,7 @@ gulp.task('styles', function() {
     .pipe(size())
     .pipe(notify({ message: 'Styles task complete' }));
 });
-
+*/
 
 var my3rdPartyOrderedScripts = [
     'js/3rdparty/polyline.js',
@@ -130,7 +131,7 @@ gulp.task('inject2', function () {
 // Watch files for changes:
 gulp.task('watch', function() {
     // Watch .scss files
-    gulp.watch('css/app.scss', ['styles']);
+    // gulp.watch('css/app.scss', ['styles']);
     // Watch .js files
     gulp.watch('js/*.js', ['scripts2']);
 

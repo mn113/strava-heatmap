@@ -39,10 +39,13 @@ renderer.printListItems = function(rides) {
     for (var i = 0; i < rides.length; i++) {
         var ride = rides[i];
 		// It must have a polyline to be included:
-		if (ride.map.summary_polyline) {
+		if (ride.map && ride.map.summary_polyline) {
 			html += `<li ${renderer.printRideDataAttributes(ride, ride.athlete)}>
 			         ${renderer.printRideDetails(ride, ride.athlete)}
 			         </li>`;
+		}
+		else {
+			console.warn("No summary_polyline available.");
 		}
     }
 	return html;
